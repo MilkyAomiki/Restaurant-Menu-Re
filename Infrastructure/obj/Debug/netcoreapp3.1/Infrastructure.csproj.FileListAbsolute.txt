@@ -1,0 +1,12 @@
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.deps.json
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.dll
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csprojAssemblyReference.cache
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfoInputs.cache
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfo.cs
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.pdb
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\ApplicationCore.dll
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\ApplicationCore.pdb
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CoreCompileInputs.cache
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CopyComplete
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.dll
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.pdb

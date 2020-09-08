@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\Restaurant-Menu-Re\\ApplicationCore\\ApplicationCore.csproj",
+      "projectUniqueName": "D:\\source\\repos\\Restaurant-Menu-Re\\ApplicationCore\\ApplicationCore.csproj",
       "projectName": "ApplicationCore",
-      "projectPath": "C:\\Users\\User\\source\\repos\\Restaurant-Menu-Re\\ApplicationCore\\ApplicationCore.csproj",
+      "projectPath": "D:\\source\\repos\\Restaurant-Menu-Re\\ApplicationCore\\ApplicationCore.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\source\\repos\\Restaurant-Menu-Re\\ApplicationCore\\obj\\",
+      "outputPath": "D:\\source\\repos\\Restaurant-Menu-Re\\ApplicationCore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
