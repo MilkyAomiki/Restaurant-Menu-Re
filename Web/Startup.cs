@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Web.Configuration;
 
 namespace Web
 {
@@ -28,6 +29,7 @@ namespace Web
         {
             services.AddControllersWithViews();
             services.AddDbContext<MenuContext>();
+            services.ConfigureCoreInterfaces();
 
         }
 
