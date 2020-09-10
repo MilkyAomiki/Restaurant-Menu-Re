@@ -6,7 +6,10 @@ D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infras
 D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.pdb
 D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\ApplicationCore.dll
 D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\ApplicationCore.pdb
-D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CoreCompileInputs.cache
 D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CopyComplete
 D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.dll
 D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.pdb
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CoreCompileInputs.cache
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.runtimeconfig.json
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.runtimeconfig.dev.json
+D:\source\repos\Restaurant-Menu-Re\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.genruntimeconfig.cache
