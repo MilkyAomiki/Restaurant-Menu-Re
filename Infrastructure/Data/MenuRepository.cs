@@ -6,7 +6,6 @@ using System.Text;
 
 //TODO: Implement methods
 
-
 namespace Infrastructure.Data
 {
     public class MenuRepository : IRepository<MenuItem>
