@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pS3VDw8fOYWIvcAZJ/SFYRxc24vKrIunu2B1D7DB3Thi7PejvkH4ezPaPw1hg+UwIhFRa9C/UMxBiUmhry6OWQ==",
+  "dgSpecHash": "+PkYj9PRL9X169jtuWShufxvtgprdG3TKpIR/fM//9NeD5IeuCMHDN0wV8mStctG7h2cTWbBdZvSzwKcgiUPjA==",
   "success": true,
-  "projectFilePath": "D:\\source\\repos\\Restaurant-Menu-Re\\ApplicationCore\\ApplicationCore.csproj",
+  "projectFilePath": "D:\\repos\\Restaurant-Menu-Re\\ApplicationCore\\ApplicationCore.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -10,8 +10,8 @@ namespace ApplicationCore.Interfaces
         T GetItem(int id);
         List<T> ListAllItems();
         T ChangeItem(T item);
-        T AddNewItem(T item);
-        T DeleteItem(T item);
+        void AddNewItem(T item);
+        void DeleteItem(T item);
 
     }
 }

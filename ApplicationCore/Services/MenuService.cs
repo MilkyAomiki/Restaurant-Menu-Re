@@ -10,29 +10,37 @@ namespace ApplicationCore.Services
 {
     public class MenuService : IMenuService<MenuItem>
     {
-        public MenuItem AddNewItem(MenuItem item)
+        public IRepository<MenuItem> Repository { get; }
+
+
+        public MenuService(IRepository<MenuItem> repository)
         {
-            throw new NotImplementedException();
+            Repository = repository;
+        }
+
+        public void AddNewItem(MenuItem item)
+        {
+            Repository.Add(item);
         }
 
         public MenuItem ChangeItem(MenuItem item)
         {
-            throw new NotImplementedException();
+            return Repository.Update(item);
         }
 
-        public MenuItem DeleteItem(MenuItem item)
+        public void DeleteItem(MenuItem item)
         {
-            throw new NotImplementedException();
+            Repository.Delete(item);
         }
 
         public MenuItem GetItem(int id)
         {
-            throw new NotImplementedException();
+            return Repository.GetById(id);
         }
 
         public List<MenuItem> ListAllItems()
         {
-            throw new NotImplementedException();
+            return Repository.ListAll();
         }
     }
 }
