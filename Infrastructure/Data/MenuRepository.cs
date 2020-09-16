@@ -38,7 +38,8 @@ namespace Infrastructure.Data
 
         public List<MenuItem> ListAll()
         {
-            return Context.MenuItem.ToList<MenuItem>();
+            var items = Context.MenuItem.ToList<MenuItem>();
+            return items;
         }
 
         public MenuItem Update(MenuItem entity)

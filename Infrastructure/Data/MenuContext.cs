@@ -22,7 +22,7 @@ namespace Infrastructure.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Name=DefaultConnection");
+                optionsBuilder.UseSqlServer("Name=HomeServer");
             }
         }
 

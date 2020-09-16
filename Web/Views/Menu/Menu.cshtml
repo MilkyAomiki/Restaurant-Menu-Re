@@ -1,0 +1,51 @@
+﻿@model Web.Models.Menu.MenuModel
+@{
+    ViewData["Title"] = "Menu";
+    Layout = "_Layout";
+}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    @section head{
+        <link rel="stylesheet" href="~/css/MenuStyle.css" />
+        <script type="text/javascript" src="~/js/MenuScript.js"></script>
+    }
+    </head>
+<body>
+    <button type="button" id="new-item-button">Create</button>
+    <main>
+        <table border="1">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Ingredients</th>
+                <th>Grams</th>
+                <th>Calories</th>
+                <th>Cooking time</th>
+                <th>Price</th>
+                <th>Creation Date</th>
+                @{
+                    foreach (var item in Model.MenuItems)
+                    {
+                    @:<tr class="table-data">
+
+                        @:<td id="id" hidden>@item.Id</td>
+                        @:<td>@item.Title</td>
+                        @:<td>@item.Description</td>
+                        @:<td>@item.Ingredients</td>
+                        @:<td>@item.Grams</td>
+                        @:<td>@item.Calories</td>   
+                        @:<td>@item.CookingTime</td>
+                        @:<td>@item.Price</td>
+                        @:<td>@item.CreationDate</td>
+
+                    @:</tr>
+                }
+                }
+
+            </table>
+    </main>
+
+</body>
+
+</html>

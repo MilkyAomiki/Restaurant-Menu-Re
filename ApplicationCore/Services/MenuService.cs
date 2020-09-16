@@ -1,10 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-//TODO: Implement methods
 
 namespace ApplicationCore.Services
 {
