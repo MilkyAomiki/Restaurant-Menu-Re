@@ -47,8 +47,9 @@ namespace Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Menu}/{action=Index}/{id?}");
+                    name: "delete",
+                    pattern: "{controller=Menu}/{action=DeleteItem}");
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }

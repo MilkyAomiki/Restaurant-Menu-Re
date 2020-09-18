@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 //TODO: Learn more about Context.Set.Update() method
- 
+
 namespace Infrastructure.Data
 {
     public class MenuRepository : IRepository<MenuItem>
@@ -20,14 +21,14 @@ namespace Infrastructure.Data
 
         public void Add(MenuItem entity)
         {
-            Context.MenuItem.AddAsync(entity);
-            Context.SaveChangesAsync();
+             Context.MenuItem.Add(entity);
+             Context.SaveChanges();
         }
 
         public void Delete(MenuItem entity)
         {
             Context.MenuItem.Remove(entity);
-            Context.SaveChangesAsync();
+            Context.SaveChanges();
         }
 
         public MenuItem GetById(int id)
@@ -45,7 +46,7 @@ namespace Infrastructure.Data
         public MenuItem Update(MenuItem entity)
         {
            var newEntity = Context.MenuItem.Update(entity).Entity;
-           Context.SaveChangesAsync();
+           Context.SaveChanges();
            return newEntity;
         }
     }

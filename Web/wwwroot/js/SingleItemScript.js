@@ -20,9 +20,25 @@ const swapToReadonly = function () {
     document.getElementById('visible-markup').innerHTML = readonlyFields;
 
     document.getElementById("turntoedit-button").onclick = swapToEditable;
+    assignDeleteClick();
 }
 
+const assignDeleteClick = function () {
+    document.getElementById("delete-button").onclick = function () {
+        let xhr = new XMLHttpRequest();
+        let id = document.getElementById("delete-button").getAttribute('value');
+        xhr.open('post', '/menu/delete');
+        xhr.setRequestHeader("Content-Type", 'application/x-www-form-urlencoded')
+        xhr.send('id=' + id);
+        xhr.onload = function () {
+            window.location.replace('/menu');
+
+        };
+    };
+}
 
 window.onload = function () {
     document.getElementById("turntoedit-button").onclick = swapToEditable;
+    assignDeleteClick();
+
 }
