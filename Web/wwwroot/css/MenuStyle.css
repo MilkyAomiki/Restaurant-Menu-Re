@@ -18,8 +18,8 @@ main {
 th, td, tr {
     padding: 3px;
     width: 300px;
+    height: 25px;
     word-break: break-word;
-    word-wrap: break-word;
 }
 
 .table-data:hover{
@@ -37,4 +37,5 @@ th, td, tr {
 #new-item-button{
     margin-top:0;
     margin-left:25px;
+    margin-bottom:25px;
 }
