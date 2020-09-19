@@ -1,4 +1,6 @@
-﻿@model Web.Models.Menu.SingleItemModel
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Web.DTO;
+@model Web.Models.Menu.SingleItemModel;
 @{
     ViewData["Title"] = Model.MenuItem.Title;
     Layout = "_Layout";
@@ -46,46 +48,58 @@
     </main>
 
     @section complementary{
-    
-        <script id="hidden-markup" type="text/html">
-                    <div id="editable-fields">
-                        <img id="turntoreadonly-button" src="~/pics/arrow_back.svg"/>
 
-                        <form action="/menu/@Model.MenuItem.Id" method="post">
-                            <div class="data-field">
-                                <label>Title</label> <br />
-                                <input type="text" name="Title" value="@Model.MenuItem.Title" placeholder="Title" required />
-                            </div>
-                            <div class="data-field">
-                                <label>Description</label> <br>
-                                <input type="text" name="Description" value="@Model.MenuItem.Description" placeholder="Description" required />
-                            </div>
-                            <div class="data-field">
-                                <label>Ingredients</label><br>
-                                <input type="text" name="Ingredients" value="@Model.MenuItem.Ingredients" placeholder="Ingredients" required />
-                            </div>
-                            <div class="data-field">
-                                <label>Grams</label><br>
-                                <input type="text" name="Grams" value="@Model.MenuItem.Grams" placeholder="Grams" required />
-                            </div>
-                            <div class="data-field">
-                                <label>Calories</label><br>
-                                <input type="text" name="Calories" value="@Model.MenuItem.Calories" placeholder="Calories" required />
-                            </div>
-                            <div class="data-field">
-                                <label>Cooking time</label><br>
-                                <input type="text" name="CookingTime" value="@Model.MenuItem.CookingTime" placeholder="Cooking time" required />
-                            </div>
-                            <div class="data-field">
-                                <label>Price</label><br>
-                                <input type="text" name="Price" value="@Model.MenuItem.Price" placeholder="Price" required />
-                            </div>
-                            <div class="data-field">
-                                <input type="datetime" name="CreationDate" value="@Model.MenuItem.CreationDate" required hidden/>
-                            </div>
-                            <button type="submit" id="submit-button">Submit</button>
-                        </form>
+        <script id="hidden-markup" type="text/html">
+            <div id="editable-fields">
+                <img id="turntoreadonly-button" src="~/pics/arrow_back.svg" />
+
+                <form action="/menu/@Model.MenuItem.Id" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="data-field">
+                        <label asp-for="MenuItem.Title" class="control-label">Title</label> <br />
+                        <input asp-for="MenuItem.Title" class="form-control" type="text" name="Title" value="@Model.MenuItem.Title" placeholder="Title" required /> <br>
+                        <span  asp-validation-for="MenuItem.Title"  class="text-danger"name="Description" ></span>
                     </div>
+                    <div class="data-field">
+                        <label asp-for="MenuItem.Description" class="control-label">Description</label> <br>
+                        <input asp-for="MenuItem.Description" class="form-control" type="text" name="Description" value="@Model.MenuItem.Description" placeholder="Description" required /> <br>
+                        <span asp-validation-for="MenuItem.Description" class="text-danger" name="Description"></span>
+                    </div>
+                    <div class="data-field">
+                        <label asp-for="MenuItem.Ingredients" class="control-label">Ingredients</label><br>
+                        <input asp-for="MenuItem.Ingredients" class="form-control" type="text" name="Ingredients" value="@Model.MenuItem.Ingredients" placeholder="Ingredients" required /> <br>
+                        <span asp-validation-for="MenuItem.Ingredients" class="text-danger" name="Description"></span>
+                    </div>
+                    <div class="data-field">
+                        <label asp-for="MenuItem.Grams" class="control-label">Grams</label><br>
+                        <input asp-for="MenuItem.Grams" class="form-control" type="text" name="Grams" value="@Model.MenuItem.Grams" placeholder="Grams" required /> <br>
+                        <span asp-validation-for="MenuItem.Grams" class="text-danger" name="Description"></span>
+                    </div>
+                    <div class="data-field">
+                        <label asp-for="MenuItem.Calories" class="control-label">Calories</label><br>
+                        <input asp-for="MenuItem.Calories" class="form-control" type="text" name="Calories" value="@Model.MenuItem.Calories" placeholder="Calories" required /> <br>
+                        <span asp-validation-for="MenuItem.Calories" class="text-danger" name="Description"></span>
+                    </div>
+                    <div class="data-field">
+                        <label asp-for="MenuItem.CookingTime" class="control-label">Cooking time</label><br>
+                        <input asp-for="MenuItem.CookingTime" class="form-control" type="text" name="CookingTime" value="@Model.MenuItem.CookingTime" placeholder="Cooking time" required /> <br>
+                        <span asp-validation-for="MenuItem.CookingTime" class="text-danger" name="Description"></span>
+                    </div>
+                    <div class="data-field">
+                        <label asp-for="MenuItem.Price" class="control-label">Price</label><br>
+                        <input asp-for="MenuItem.Price" class="form-control" type="text" name="Price" value="@Model.MenuItem.Price" placeholder="Price" required /> <br>
+                        <span asp-validation-for="MenuItem.Price" class="text-danger" name="Description"></span>
+                    </div>
+                    <div class="data-field">
+                        <input type="datetime" name="CreationDate" value="@Model.MenuItem.CreationDate" required hidden />
+                    </div>
+                    <button type="submit" id="submit-button">Submit</button>
+                </form>
+            </div>
+        </script>
+        <script>
+            let initEditable = '@Model.OpenEditable';
+            if (initEditable == 'True') swapToEditable();
         </script>
     }
 </body>
