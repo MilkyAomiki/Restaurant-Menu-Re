@@ -1,0 +1,61 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Web.DTO.MenuItemDTO
+@{
+    ViewData["Title"] = "New";
+    Layout = "_Layout";
+}
+<html>
+<head>
+    @section head{
+        <link rel="stylesheet" href="~/css/NewItemStyle.css" />
+        <script type="text/javascript" src="~/js/NewItemScript.js"></script>
+    }
+</head>
+<body>
+    <main>
+        <div id="input-fields">
+            <form action="/menu" method="post">
+                <div asp-validation-summary="@ValidationSummary.All" class="text-danger"></div>
+                <div class="data-field">
+                    <label asp-for="Title" class="control-label">Title</label> <br />
+                    <input asp-for="Title" class="form-control" type="text" name="title" placeholder="Title" required /> <br>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="data-field">
+                    <label asp-for="Description" class="control-label">Description</label> <br>
+                    <input asp-for="Description" class="form-control" type="text" name="description" placeholder="Description" required /> <br>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="data-field">
+                    <label asp-for="Ingredients" class="control-label">Ingredients</label><br>
+                    <input asp-for="Ingredients" class="form-control" type="text" name="ingredients" placeholder="Ingredients" required /> <br>
+                    <span asp-validation-for="Ingredients" class="text-danger"></span>
+                </div>
+                <div class="data-field">
+                    <label asp-for="Grams" class="control-label">Grams</label><br>
+                    <input asp-for="Grams" class="form-control" type="text" name="grams" placeholder="Grams" required /> <br>
+                    <span asp-validation-for="Grams" class="text-danger"></span>
+                </div>
+                <div class="data-field">
+                    <label asp-for="Calories" class="control-label">Calories</label><br>
+                    <input asp-for="Calories" class="form-control" type="text" name="calories" placeholder="Calories" required /> <br>
+                    <span asp-validation-for="Calories" class="text-danger"></span>
+                </div>
+                <div class="data-field">
+                    <label asp-for="CookingTime" class="control-label">Cooking time</label><br>
+                    <input asp-for="CookingTime" class="form-control" type="text" name="cookingTime" placeholder="Cooking time" required /> <br>
+                    <span asp-validation-for="CookingTime" class="text-danger"></span>
+                </div>
+                <div class="data-field">
+                    <label asp-for="Price" class="control-label">Price</label><br>
+                    <input asp-for="Price" class="form-control" type="text" name="price" placeholder="Price" required /> <br>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <button type="submit" id="submit-button">Submit</button>
+                <button type="button" id="cancel-button">Cancel</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
