@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Web.DTO
 {
+    //TODO Между объявлением членов класса, нужно ставить пробелы
     public class MenuItemDTO
     {
         [FromRoute(Name = "id")]

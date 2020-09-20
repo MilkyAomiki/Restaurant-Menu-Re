@@ -12,6 +12,7 @@ namespace Infrastructure.Data
 {
     public class MenuRepository : IRepository<MenuItem>
     {
+        //Нужна ему публичность ?
         public MenuContext Context { get; }
 
         public int Count => Context.MenuItem.Count();
@@ -41,6 +42,7 @@ namespace Infrastructure.Data
 
         public List<MenuItem> ListAll()
         {
+            //TODO Зачем <MenuItem> ?
             var items = Context.MenuItem.ToList<MenuItem>();
             return items;
         }

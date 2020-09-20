@@ -36,6 +36,9 @@ namespace Web.Controllers
             return View();
         }
 
+        //TODO "Громозкие операции" и в целом операции лучше не делать в параметрах метода.
+        //Лучше выносить в отдельные переменные
+        //Так как 20, это одно и тоже логическое значение, то нужно выносить в константу
         [HttpGet("/menu")]
         public IActionResult Menu(int page = 1)
         {
@@ -117,7 +120,7 @@ namespace Web.Controllers
             return RedirectToAction("SingleItem", new { id = sendItem.Id });
         }
 
-
+        //TODO Для удаления нужно, чтобы DeleteItem принимал Id
         [HttpPost("/menu/delete")]
         public IActionResult DeleteItem(int id)
         {

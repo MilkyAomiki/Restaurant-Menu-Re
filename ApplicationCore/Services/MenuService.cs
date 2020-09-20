@@ -7,6 +7,7 @@ namespace ApplicationCore.Services
 {
     public class MenuService : IMenuService<MenuItem>
     {
+        //Публичность ему не нужна, пока как я вижу
         public IRepository<MenuItem> Repository { get; }
 
         public int Count => Repository.Count;
@@ -36,6 +37,7 @@ namespace ApplicationCore.Services
             return Repository.GetById(id);
         }
 
+        //TODO Лучше назвать GetAll, о том что это "лист" говорит тип возвращаемого значения
         public List<MenuItem> ListAllItems()
         {
             return Repository.ListAll();

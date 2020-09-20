@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces
 {
+    //TODO where T: MenuItem осознано ? IRepository теперь только для MenuItem, в чем смысл тогда T ?
     public interface IRepository<T> where T: MenuItem
     {
         public int Count { get; }

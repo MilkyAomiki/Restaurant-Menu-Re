@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Infrastructure.Data
 {
+    //TODO зачем partial ?
     public partial class MenuContext : DbContext
     {
         public MenuContext()
@@ -18,6 +19,7 @@ namespace Infrastructure.Data
 
         public virtual DbSet<MenuItem> MenuItem { get; set; }
 
+        //TODO Такую настройку делать не тут, а в Startup
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -26,6 +28,7 @@ namespace Infrastructure.Data
             }
         }
 
+        //Имена в нотации Camel; Конфиги по сущностям лучше вынести в отдельные классы конфигурации EntityTypeConfiguration<T>, а тут их подключать
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MenuItem>(entity =>
@@ -71,6 +74,8 @@ namespace Infrastructure.Data
 
             OnModelCreatingPartial(modelBuilder);
         }
+
+        //TODO зачем partial ?
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

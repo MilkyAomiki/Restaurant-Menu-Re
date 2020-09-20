@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ApplicationCore.Interfaces
 {
+    //TODO Такой же вопрос как и в IRepository
     public interface IMenuService<T> where T: MenuItem
     {
         public int Count { get; }

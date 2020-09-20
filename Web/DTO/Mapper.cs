@@ -8,6 +8,7 @@ namespace Web.DTO
 {
     public static class Mapper
     {
+        //Когда имена свойств и их типы совпадают, не обязательно руками каждое свойство перемапливать.
         public static MenuItemDTO Map(MenuItem menuItem)
         {
             var dtoItem = new MenuItemDTO
