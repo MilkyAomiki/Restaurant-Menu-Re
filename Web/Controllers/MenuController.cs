@@ -37,11 +37,29 @@ namespace Web.Controllers
         }
 
         [HttpGet("/menu")]
-        public IActionResult Menu(int page = 1)
+        public IActionResult Menu(int page = 1, string orderColumn = "", string orderType = null)
         {
-            var items = menuService.SelectRange(20 * (page - 1), 20);
-            var totalPageNum = (menuService.Count-1) / 20 +1;
-            return View(new MenuModel(items, totalPageNum, page));
+            List<MenuItem> items;
+            int itemCount = 20;
+            int downItem = itemCount * (page - 1);
+            var totalPageNum = (menuService.Count - 1) / itemCount + 1;
+            
+            if (orderColumn != "" && orderType != null && orderColumn != "Ingredients")
+            {
+                orderColumn = Regex.Replace(orderColumn, " ", String.Empty);
+                items = menuService.ListAllItems(downItem, itemCount, orderColumn, orderType);
+            }
+            else
+            {
+                items = menuService.ListAllItems(downItem, itemCount);
+            }
+
+            return View( new MenuModel(
+                menuItems: items, 
+                totalPageNum: totalPageNum, 
+                pageNum: page, 
+                orderParams: orderColumn.ToLower() + "-" + orderType
+                ));
         }
 
         [HttpPost("/menu")]
@@ -62,7 +80,7 @@ namespace Web.Controllers
                     if (columnNameMatch.Success)
                     {
                         var reg = new Regex(@"\(|\)");
-                        columnName = reg.Replace(columnNameMatch.Value, String.Empty);
+                        columnName = reg.Replace(columnNameMatch.Value, String.Empty);  
                     }
                     ModelState.AddModelError("Title#" ,$"The given title '{columnName}' have already been created ");
                     return View("NewItem", item);

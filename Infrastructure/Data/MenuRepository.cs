@@ -3,6 +3,7 @@ using ApplicationCore.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,32 @@ namespace Infrastructure.Data
             return items;
         }
 
+
+        public List<MenuItem> ListAll(int index, int count)
+        {
+            var selectedItems = Context.MenuItem.Skip(index).Take(count);
+            return selectedItems.ToList();
+        }
+
+        public List<MenuItem> ListAll(int index, int count, string orderColumn, string orderType)
+        {
+            IQueryable<MenuItem> selectedItems = Context.MenuItem;
+            //var ff = selectedItems.ToList()[0].GetType().GetProperty(orderColumn, BindingFlags.IgnoreCase).GetValue(selectedItems.ToList()[0]);
+            
+            if (orderType.ToLower() == "asc")
+            {
+                selectedItems = selectedItems.OrderBy(orderColumn);
+            }
+            else if (orderType.ToLower() == "desc")
+            {
+                selectedItems = selectedItems.OrderByDescending(orderColumn);
+            }
+
+            selectedItems = selectedItems.Skip(index).Take(count);
+
+            return selectedItems.ToList();
+        }
+
         public MenuItem Update(MenuItem entity)
         {
            var newEntity = Context.MenuItem.Update(entity).Entity;
@@ -52,10 +79,6 @@ namespace Infrastructure.Data
            return newEntity;
         }
 
-        public List<MenuItem> SelectRange(int index, int count)
-        {
-            var selectedItems = Context.MenuItem.Skip(index).Take(count);
-            return selectedItems.ToList();
-        }
+
     }
 }

@@ -35,15 +35,16 @@
     <button type="button" id="new-item-button">Create</button>
     <main>
         <table id="items-table" border="1">
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Ingredients</th>
-                <th>Grams</th>
-                <th>Calories</th>
-                <th>Cooking time</th>
-                <th>Price</th>
-                <th>Creation Date</th>
+            <tr id="@Model.OrderParams">
+                <th class="column-name">Title</th>
+                <th class="column-name">Description</th>
+                <th class="column-name">Ingredients</th>
+                <th class="column-name">Grams</th>
+                <th class="column-name">Calories</th>
+                <th class="column-name">Cooking time</th>
+                <th class="column-name">Price</th>
+                <th class="column-name">Creation Date</th>
+            </tr>
                 @{
                     foreach (var item in Model.MenuItems)
                     {
@@ -78,6 +79,12 @@
                 </tr>
     </table>
     </main>
+
+    @section complementary{
+    <script>
+        var orderParams = "@Model.OrderParams";
+    </script>
+    }
 </body>
 
 </html>

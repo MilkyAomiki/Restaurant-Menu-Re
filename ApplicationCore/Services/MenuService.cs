@@ -41,9 +41,14 @@ namespace ApplicationCore.Services
             return Repository.ListAll();
         }
 
-        public List<MenuItem> SelectRange(int index, int count)
+        public List<MenuItem> ListAllItems(int index, int count)
         {
-            return Repository.SelectRange(index, count);
+            return Repository.ListAll(index, count);
+        }
+
+        public List<MenuItem> ListAllItems(int index, int count, string orderColumn, string orderType)
+        {
+            return Repository.ListAll(index, count, orderColumn, orderType);
         }
     }
 }
