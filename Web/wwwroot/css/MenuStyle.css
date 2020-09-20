@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
 }
-table {
+#items-table {
     margin: 0 auto;
     border-collapse: collapse;
     max-width: 1600px;
@@ -13,9 +13,10 @@ main {
     justify-content: center;
     align-items: center;
     max-width: 1920px;
+    flex-direction: column;
 }
 
-th, td, tr {
+#items-table th, #items-table td, #items-table tr {
     padding: 3px;
     width: 300px;
     height: 25px;
@@ -38,4 +39,12 @@ th, td, tr {
     margin-top:0;
     margin-left:25px;
     margin-bottom:25px;
+}
+
+#pagination{
+    margin-top: 50px;
+    height:25px;
+}
+a{
+    text-decoration:none;
 }

@@ -24,5 +24,9 @@ const mainFunc = function () {
     }
 
 }
+
+const pageClickEvents = function () {
+
+}
 window.onload = mainFunc;
     

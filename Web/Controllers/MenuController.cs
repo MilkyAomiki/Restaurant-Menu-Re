@@ -22,24 +22,28 @@ namespace Web.Controllers
         {
             this.menuService = menuService;
         }
+
         [HttpGet("/")]
         public IActionResult Index()
         {
             return Redirect("/menu");
         }
+
         //Should precede SingleItem method
         [HttpGet("/menu/new")]
         public IActionResult NewItem()
         {
             return View();
         }
-        [HttpGet("/menu")]
-        public IActionResult Menu()
-        {
-            var items = menuService.ListAllItems();
 
-            return View(new MenuModel(items, 0));
+        [HttpGet("/menu")]
+        public IActionResult Menu(int page = 1)
+        {
+            var items = menuService.SelectRange(20 * (page - 1), 20);
+            var totalPageNum = (menuService.Count-1) / 20 +1;
+            return View(new MenuModel(items, totalPageNum, page));
         }
+
         [HttpPost("/menu")]
         public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] MenuItemDTO item)
         {
@@ -68,6 +72,7 @@ namespace Web.Controllers
 
             return Redirect("/menu");
         }
+
         [HttpGet("/menu/{id}")]
         public IActionResult SingleItem(int id)
         {

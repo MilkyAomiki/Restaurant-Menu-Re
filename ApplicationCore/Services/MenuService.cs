@@ -9,6 +9,7 @@ namespace ApplicationCore.Services
     {
         public IRepository<MenuItem> Repository { get; }
 
+        public int Count => Repository.Count;
 
         public MenuService(IRepository<MenuItem> repository)
         {
@@ -38,6 +39,11 @@ namespace ApplicationCore.Services
         public List<MenuItem> ListAllItems()
         {
             return Repository.ListAll();
+        }
+
+        public List<MenuItem> SelectRange(int index, int count)
+        {
+            return Repository.SelectRange(index, count);
         }
     }
 }

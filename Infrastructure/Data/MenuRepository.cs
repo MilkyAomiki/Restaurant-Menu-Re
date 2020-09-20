@@ -14,6 +14,8 @@ namespace Infrastructure.Data
     {
         public MenuContext Context { get; }
 
+        public int Count => Context.MenuItem.Count();
+
         public MenuRepository(MenuContext context)
         {
             Context = context;
@@ -48,6 +50,12 @@ namespace Infrastructure.Data
            var newEntity = Context.MenuItem.Update(entity).Entity;
            Context.SaveChanges();
            return newEntity;
+        }
+
+        public List<MenuItem> SelectRange(int index, int count)
+        {
+            var selectedItems = Context.MenuItem.Skip(index).Take(count);
+            return selectedItems.ToList();
         }
     }
 }

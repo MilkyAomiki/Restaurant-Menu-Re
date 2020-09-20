@@ -1,7 +1,27 @@
 ﻿@model Web.Models.Menu.MenuModel
 @{
+    int startPageNum;
+    int endPageNum;
     ViewData["Title"] = "Menu";
     Layout = "_Layout";
+    if (Model.TotalPageNum > 7)
+    {
+        if (Model.PageNum > 7)
+        {
+            startPageNum = Model.PageNum - 3;
+            endPageNum = Model.PageNum + 3 > Model.TotalPageNum ? Model.TotalPageNum : Model.PageNum + 3;
+        }
+        else
+        {
+            startPageNum = 1;
+            endPageNum = 7;
+        }
+    }
+    else
+    {
+        startPageNum = 1;
+        endPageNum = Model.TotalPageNum;
+    }
 }
 <!DOCTYPE HTML>
 <html lang="en">
@@ -14,7 +34,7 @@
 <body>
     <button type="button" id="new-item-button">Create</button>
     <main>
-        <table border="1">
+        <table id="items-table" border="1">
             <tr>
                 <th>Title</th>
                 <th>Description</th>
@@ -44,8 +64,20 @@
                 }
 
             </table>
+            <table id="pagination">
+                <tr>
+                    @for (int i = startPageNum; i <= endPageNum; i++)
+                    {
+                        if (i == Model.PageNum)
+                        {
+                            <td>@i</td>
+                            continue;
+                        }
+                        <td><a href="/menu?page=@i">@i</a></td>
+                    }
+                </tr>
+    </table>
     </main>
-
 </body>
 
 </html>

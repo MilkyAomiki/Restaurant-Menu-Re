@@ -10,18 +10,18 @@ header {
     height: 60px;
     margin-bottom:20px;
 }
-a {
-    text-decoration:none;
-    float:left;
+header a {
+    text-decoration: none;
+    float: left;
     margin: 0;
     margin-top: 20px;
     margin-left: 15px;
     color: aliceblue;
 }
-a:link {
+header a:link {
     color: aliceblue;
 }
-a:visited {
+header a:visited {
     color: aliceblue;
 }
 
