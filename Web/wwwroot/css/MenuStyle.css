@@ -53,13 +53,9 @@ a{
     background-color: #f0faff;
     cursor:pointer;
 }
-#search-row td {
-/*    display:flex;
-    align-items:center;
-    justify-content:center;*/
-}
+
 #search-row td input {
-    width:150px;
+    width:95%;
     border:none;
     outline:none;
     border-top:1px solid #e6e6e6;
@@ -81,3 +77,9 @@ a{
         height: 25px;
         word-break: break-word;
     }
+
+#search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
