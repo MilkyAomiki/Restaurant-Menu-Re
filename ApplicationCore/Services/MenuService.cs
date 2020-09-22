@@ -7,45 +7,45 @@ namespace ApplicationCore.Services
 {
     public class MenuService : IMenuService<MenuItem>
     {
-        //Публичность ему не нужна, пока как я вижу
-        public IRepository<MenuItem> Repository { get; }
+        private readonly IRepository<MenuItem> _repository;
 
-        public int Count => Repository.Count;
+        public int Count => _repository.Count;
 
         public MenuService(IRepository<MenuItem> repository)
         {
-            Repository = repository;
+            _repository = repository;
         }
 
         public void AddNewItem(MenuItem item)
         {
-            Repository.Add(item);
+            _repository.Add(item);
         }
 
         public MenuItem ChangeItem(MenuItem item)
         {
-            return Repository.Update(item);
+            return _repository.Update(item);
         }
 
-        public void DeleteItem(MenuItem item)
+        public void DeleteItem(int id)
         {
-            Repository.Delete(item);
+            _repository.Delete(id);
         }
 
         public MenuItem GetItem(int id)
         {
-            return Repository.GetById(id);
+            return _repository.GetById(id);
         }
 
-        //TODO Лучше назвать GetAll, о том что это "лист" говорит тип возвращаемого значения
+        //TODO [Q] Лучше назвать GetAll, о том что это "лист" говорит тип возвращаемого значения 
+        // -- List (глагол) - перечислять 
         public List<MenuItem> ListAllItems()
         {
-            return Repository.ListAll();
+            return _repository.ListAll();
         }
 
         public List<MenuItem> SelectRange(int index, int count)
         {
-            return Repository.SelectRange(index, count);
+            return _repository.SelectRange(index, count);
         }
     }
 }

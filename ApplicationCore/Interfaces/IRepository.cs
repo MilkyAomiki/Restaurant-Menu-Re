@@ -1,12 +1,8 @@
-﻿using ApplicationCore.Entities;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ApplicationCore.Interfaces
 {
-    //TODO where T: MenuItem осознано ? IRepository теперь только для MenuItem, в чем смысл тогда T ?
-    public interface IRepository<T> where T: MenuItem
+    public interface IRepository<T>
     {
         public int Count { get; }
         T GetById(int id);
@@ -14,7 +10,7 @@ namespace ApplicationCore.Interfaces
         List<T> SelectRange(int index, int count);
         void Add(T entity);
         T Update(T entity);
-        void Delete(T entity);
+        void Delete(int id);
 
         
     }

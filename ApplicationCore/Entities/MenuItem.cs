@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ApplicationCore.Entities
 {
-    //TODO зачем partial ?
-    public partial class MenuItem
+    public class MenuItem
     {
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }
