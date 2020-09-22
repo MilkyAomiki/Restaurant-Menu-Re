@@ -34,7 +34,20 @@
 <body>
     <button type="button" id="new-item-button">Create</button>
     <main>
+        <table id="search-table">
+            <tr id="search-row">
+                <td class="search-bar"><input type="text" name="Title" value="" placeholder="Title" /></td>
+                <td class="search-bar"><input type="text" name="Description" value="" placeholder="Description" /></td>
+                <td class="search-bar"><input type="text" name="Ingredients" value="" placeholder="Ingredients" /></td>
+                <td class="search-bar"><input type="text" name="Grams" value="" placeholder="Grams" /></td>
+                <td class="search-bar"><input type="text" name="Calories" value="" placeholder="Calories" /></td>
+                <td class="search-bar"><input type="text" name="CookingTime" value="" placeholder="CookingTime" /></td>
+                <td class="search-bar"><input type="text" name="Price" value="" placeholder="Price" /></td>
+                <td class="search-bar"><input type="text" name="CreationDate" value="" placeholder="Creation Date" /></td>
+            </tr>
+        </table>
         <table id="items-table" border="1">
+
             <tr id="@Model.OrderParams">
                 <th class="column-name">Title</th>
                 <th class="column-name">Description</th>
@@ -45,26 +58,29 @@
                 <th class="column-name">Price</th>
                 <th class="column-name">Creation Date</th>
             </tr>
-                @{
-                    foreach (var item in Model.MenuItems)
-                    {
+
+            @{
+                foreach (var item in Model.MenuItems)
+                {
                     @:<tr class="table-data">
+
 
                         @:<td id="id" hidden>@item.Id</td>
                         @:<td>@item.Title</td>
                         @:<td>@item.Description</td>
                         @:<td>@item.Ingredients</td>
                         @:<td>@item.Grams</td>
-                        @:<td>@item.Calories</td>   
+                        @:<td>@item.Calories</td>
                         @:<td>@item.CookingTime</td>
                         @:<td>@item.Price</td>
                         @:<td>@item.CreationDate</td>
 
+
                     @:</tr>
                 }
-                }
+            }
 
-            </table>
+        </table>
             <table id="pagination">
                 <tr>
                     @for (int i = startPageNum; i <= endPageNum; i++)
