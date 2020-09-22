@@ -1,11 +1,8 @@
-﻿using ApplicationCore.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ApplicationCore.Interfaces
 {
-    public interface IMenuService<T> where T: MenuItem
+    public interface IMenuService<T>
     {
         public int Count { get; }
         T GetItem(int id);
@@ -14,7 +11,7 @@ namespace ApplicationCore.Interfaces
         List<T> ListAllItems(int index, int count, string orderColumn, string orderType);
         T ChangeItem(T item);
         void AddNewItem(T item);
-        void DeleteItem(T item);
+        void DeleteItem(int id);
 
     }
 }

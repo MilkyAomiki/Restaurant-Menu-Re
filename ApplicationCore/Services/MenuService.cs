@@ -7,48 +7,48 @@ namespace ApplicationCore.Services
 {
     public class MenuService : IMenuService<MenuItem>
     {
-        public IRepository<MenuItem> Repository { get; }
+        private readonly IRepository<MenuItem> _repository;
 
-        public int Count => Repository.Count;
+        public int Count => _repository.Count;
 
         public MenuService(IRepository<MenuItem> repository)
         {
-            Repository = repository;
+            _repository = repository;
         }
 
         public void AddNewItem(MenuItem item)
         {
-            Repository.Add(item);
+            _repository.Add(item);
         }
 
         public MenuItem ChangeItem(MenuItem item)
         {
-            return Repository.Update(item);
+            return _repository.Update(item);
         }
 
-        public void DeleteItem(MenuItem item)
+        public void DeleteItem(int id)
         {
-            Repository.Delete(item);
+            _repository.Delete(id);
         }
 
         public MenuItem GetItem(int id)
         {
-            return Repository.GetById(id);
+            return _repository.GetById(id);
         }
 
         public List<MenuItem> ListAllItems()
         {
-            return Repository.ListAll();
+            return _repository.ListAll();
         }
 
         public List<MenuItem> ListAllItems(int index, int count)
         {
-            return Repository.ListAll(index, count);
+            return _repository.ListAll(index, count);
         }
 
         public List<MenuItem> ListAllItems(int index, int count, string orderColumn, string orderType)
         {
-            return Repository.ListAll(index, count, orderColumn, orderType);
+            return _repository.ListAll(index, count, orderColumn, orderType);
         }
     }
 }

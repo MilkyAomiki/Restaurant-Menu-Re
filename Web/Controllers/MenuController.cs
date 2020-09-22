@@ -135,12 +135,10 @@ namespace Web.Controllers
             return RedirectToAction("SingleItem", new { id = sendItem.Id });
         }
 
-
         [HttpPost("/menu/delete")]
         public IActionResult DeleteItem(int id)
         {
-            var item = menuService.GetItem(id);
-            menuService.DeleteItem(item);
+            menuService.DeleteItem(id);
             return Ok();
         }
 
