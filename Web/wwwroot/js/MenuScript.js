@@ -16,7 +16,7 @@
         }, false);
     }
 }
-
+//TODO Sort out orderClick and searchBoxClick functions
 function orderClickEvents() {
     let ths = document.getElementsByClassName('column-name');
 
@@ -53,8 +53,16 @@ function searchBoxClickEvent() {
     let searchBars = document.getElementsByClassName("search-bar");
     for (var i = 0; i < searchBars.length; i++) {
         searchBars[i].firstElementChild.onkeydown = function (e) {
+            let url = '/menu?'
             if (e.code == 'Enter') {
-                window.location.href = 'menu/#';
+                for (var i = 0; i < searchBars.length; i++) {
+                    let searchBar = searchBars[i].firstElementChild;
+                    if (searchBar.value != '') {
+                        url += searchBar.getAttribute("name") + '=' + searchBar.value + '&';
+                    }
+                }
+                url = url.slice(0, -1);
+                window.location.href = url;
             }
         }
     }

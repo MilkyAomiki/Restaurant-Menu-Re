@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -36,22 +33,30 @@ namespace Web.Controllers
             return View();
         }
 
+
         [HttpGet("/menu")]
-        public IActionResult Menu(int page = 1, string orderColumn = "", string orderType = null)
+        public IActionResult Menu(int page = 1, string orderColumn = "", string orderType = null, MenuItem searchFields = null)
         {
             List<MenuItem> items;
             int itemCount = 20;
             int downItem = itemCount * (page - 1);
             var totalPageNum = (menuService.Count - 1) / itemCount + 1;
+
+            if (searchFields.Title == null && searchFields.Description == null && 
+                searchFields.Ingredients == null && searchFields.CreationDate == DateTime.MinValue && searchFields.Id == 0 
+                && searchFields.Price == null && searchFields.Grams == null && searchFields.Calories == null && searchFields.CookingTime == null)
+            {
+                searchFields = null;
+            }
             
             if (orderColumn != "" && orderType != null && orderColumn != "Ingredients")
             {
                 orderColumn = Regex.Replace(orderColumn, " ", String.Empty);
-                items = menuService.ListAllItems(downItem, itemCount, orderColumn, orderType);
+                items = menuService.ListAllItems(downItem, itemCount, orderColumn, orderType, searchFields);
             }
             else
             {
-                items = menuService.ListAllItems(downItem, itemCount);
+                items = menuService.ListAllItems(downItem, itemCount, searchFields);
             }
 
             return View( new MenuModel(
@@ -63,7 +68,7 @@ namespace Web.Controllers
         }
 
         [HttpPost("/menu")]
-        public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] MenuItemDTO item)
+        public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] DTO.MenuItemDTO item)
         {
             try
             {
@@ -102,7 +107,7 @@ namespace Web.Controllers
         }
 
         [HttpPost("/menu/{id}")]
-        public IActionResult UpdateItem(MenuItemDTO item)
+        public IActionResult UpdateItem(DTO.MenuItemDTO item)
         {
             if (!ModelState.IsValid)
             {

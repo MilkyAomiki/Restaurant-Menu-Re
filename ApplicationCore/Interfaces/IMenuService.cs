@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ApplicationCore.Entities;
+using System;
+using System.Collections.Generic;
 
 namespace ApplicationCore.Interfaces
 {
@@ -7,8 +9,9 @@ namespace ApplicationCore.Interfaces
         public int Count { get; }
         T GetItem(int id);
         List<T> ListAllItems();
-        List<T> ListAllItems(int index, int count);
-        List<T> ListAllItems(int index, int count, string orderColumn, string orderType);
+        List<T> ListAllItems(int index, int count, T searchItem);
+        List<T> ListAllItems(int index, int count, string orderColumn, string orderType, T searchItem);
+        List<T> Find(Func<T, bool> rules);
         T ChangeItem(T item);
         void AddNewItem(T item);
         void DeleteItem(int id);

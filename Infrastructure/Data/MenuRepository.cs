@@ -1,7 +1,10 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Infrastructure.Data
 {
@@ -43,36 +46,40 @@ namespace Infrastructure.Data
         }
 
 
-        public List<MenuItem> ListAll(int index, int count)
-        {
-            var selectedItems = _context.MenuItem.Skip(index).Take(count);
-            return selectedItems.ToList();
-        }
-
-        public List<MenuItem> ListAll(int index, int count, string orderColumn, string orderType)
+        public List<MenuItem> ListAll(int index, int count, List<Expression<Func<MenuItem, bool>>> rules = null)
         {
             IQueryable<MenuItem> selectedItems = _context.MenuItem;
-            //var ff = selectedItems.ToList()[0].GetType().GetProperty(orderColumn, BindingFlags.IgnoreCase).GetValue(selectedItems.ToList()[0]);
-            
-            if (orderType.ToLower() == "asc")
-            {
-                selectedItems = selectedItems.OrderBy(orderColumn);
-            }
-            else if (orderType.ToLower() == "desc")
-            {
-                selectedItems = selectedItems.OrderByDescending(orderColumn);
-            }
 
+            if (!(rules is null))  selectedItems = selectedItems.Where(rules);
             selectedItems = selectedItems.Skip(index).Take(count);
 
             return selectedItems.ToList();
         }
+
+        public List<MenuItem> ListAll(int index, int count, string orderColumn, string orderType, List<Expression<Func<MenuItem, bool>>> rules = null)
+        {
+            IQueryable<MenuItem> selectedItems = _context.MenuItem;
+
+            if (!(rules is null)) selectedItems = selectedItems.Where(rules);
+            selectedItems = selectedItems.OrderByKey(orderColumn, orderType);
+            selectedItems = selectedItems.Skip(index).Take(count);
+
+            return selectedItems.ToList();
+        }
+
+
 
         public MenuItem Update(MenuItem entity)
         {
            var newEntity = _context.MenuItem.Update(entity).Entity;
            _context.SaveChanges();
            return newEntity;
+        }
+
+        public List<MenuItem> Find(Func<MenuItem, bool> rules)
+        {
+            var foundItems = _context.MenuItem.Where(rules);
+            return foundItems.ToList();
         }
     }
 }

@@ -15,10 +15,15 @@ namespace Infrastructure.Data
         }
 
         public virtual DbSet<MenuItem> MenuItem { get; set; }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+            base.OnConfiguring(optionsBuilder);
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new MenuItemConfiguration());
+
 
         }
     }
