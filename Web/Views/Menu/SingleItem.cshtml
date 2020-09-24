@@ -5,7 +5,8 @@
     ViewData["Title"] = Model.MenuItem.Title;
     Layout = "_Layout";
 }
-<html lang="en-us">
+<!DOCTYPE html>
+<html  xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
 <head>
     @section head{
         <link rel="stylesheet" href="~/css/SingleItemStyle.css" />
@@ -18,7 +19,7 @@
     </div>
     <main id="visible-markup">
         <div id="readonly-fields">
-            <div class="data-field">
+            <div class="data-field"  lang="en">
                 <h5>Title</h5> @Model.MenuItem.Title
             </div>
             <div class="data-field">
@@ -31,7 +32,7 @@
                 <h5>Grams</h5> @Model.MenuItem.Grams
             </div>
             <div class="data-field">
-                <h5>Calories</h5> @Model.MenuItem.Calories
+                <h5>Calories <small style="font-weight:100">(per 100 grams)</small></h5> @Model.MenuItem.Calories
             </div>
             <div class="data-field">
                 <h5>Cooking time</h5> @Model.MenuItem.CookingTime

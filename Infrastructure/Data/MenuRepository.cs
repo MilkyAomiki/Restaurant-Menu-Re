@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.DataTransformation;
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace Infrastructure.Data
             IQueryable<MenuItem> selectedItems = _context.MenuItem;
 
             if (!(rules is null))  selectedItems = selectedItems.Where(rules);
-            selectedItems = selectedItems.Skip(index).Take(count);
+            selectedItems = selectedItems.Skip(index).Take(count).Select(Expressions.GenerateTransformationExpression());
 
             return selectedItems.ToList();
         }
@@ -62,7 +63,7 @@ namespace Infrastructure.Data
 
             if (!(rules is null)) selectedItems = selectedItems.Where(rules);
             selectedItems = selectedItems.OrderByKey(orderColumn, orderType);
-            selectedItems = selectedItems.Skip(index).Take(count);
+            selectedItems = selectedItems.Skip(index).Take(count).Select(Expressions.GenerateTransformationExpression());
 
             return selectedItems.ToList();
         }
