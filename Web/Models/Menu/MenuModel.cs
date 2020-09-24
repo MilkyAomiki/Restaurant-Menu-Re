@@ -8,12 +8,13 @@ namespace Web.Models.Menu
 {
     public class MenuModel
     {
-        public MenuModel(List<MenuItem> menuItems, int totalPageNum, string orderParams = "", int pageNum = 1)
+        public MenuModel(List<MenuItem> menuItems, int totalPageNum, string orderParams = "", int pageNum = 1, MenuItem searchFields = null)
         {
             MenuItems = menuItems;
             TotalPageNum = totalPageNum;
             OrderParams = orderParams;
             PageNum = pageNum;
+            SearchFields = searchFields;
         }
 
         public List<MenuItem> MenuItems { get; set; }
@@ -21,6 +22,7 @@ namespace Web.Models.Menu
         public int TotalPageNum { get; set; }
         //{columnName}-{orderType}
         public string OrderParams { get; set; }
+        public MenuItem SearchFields { get; set; }
 
     }
 }

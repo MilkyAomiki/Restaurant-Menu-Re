@@ -42,9 +42,9 @@ namespace Web.Controllers
             int downItem = itemCount * (page - 1);
             var totalPageNum = (menuService.Count - 1) / itemCount + 1;
 
-            if (searchFields.Title == null && searchFields.Description == null && 
-                searchFields.Ingredients == null && searchFields.CreationDate == DateTime.MinValue && searchFields.Id == 0 
-                && searchFields.Price == null && searchFields.Grams == null && searchFields.Calories == null && searchFields.CookingTime == null)
+            if (searchFields.Title == default && searchFields.Description == default && 
+                searchFields.Ingredients == default && searchFields.CreationDate == default && searchFields.Id == default
+                && searchFields.Price == default && searchFields.Grams == default && searchFields.Calories == default && searchFields.CookingTime == default)
             {
                 searchFields = null;
             }
@@ -63,7 +63,8 @@ namespace Web.Controllers
                 menuItems: items, 
                 totalPageNum: totalPageNum, 
                 pageNum: page, 
-                orderParams: orderColumn.ToLower() + "-" + orderType
+                orderParams: orderColumn.ToLower() + "-" + orderType, 
+                searchFields: searchFields
                 ));
         }
 

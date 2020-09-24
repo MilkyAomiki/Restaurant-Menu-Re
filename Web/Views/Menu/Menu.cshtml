@@ -22,6 +22,8 @@
         startPageNum = 1;
         endPageNum = Model.TotalPageNum;
     }
+
+
 }
 <!DOCTYPE HTML>
 <html lang="en">
@@ -36,6 +38,7 @@
     <main>
         <table id="search-table">
             <tr id="search-row">
+                
                 <td class="search-bar"><input type="text" name="Title" value="" placeholder="Title" /></td>
                 <td class="search-bar"><input type="text" name="Description" value="" placeholder="Description" /></td>
                 <td class="search-bar"><input type="text" name="Ingredients" value="" placeholder="Ingredients" /></td>
@@ -97,9 +100,33 @@
     </main>
 
     @section complementary{
-    <script>
+        <script>
         var orderParams = "@Model.OrderParams";
-    </script>
+
+            var titleVal = '';
+            var descrVal = '';
+            var ingredVal = '';
+            var gramsVal = '';
+            var calVal = '';
+            var cookTimeVal = '';
+            var priceVal = '';
+            var createDatVal = '';
+
+            @if (Model.SearchFields != null)
+            {
+                @:var titleVal = '@(Model.SearchFields.Title == default ? "": Model.SearchFields.Title)';
+                @:var descrVal = '@(Model.SearchFields.Description == default ? "": Model.SearchFields.Description)';
+                @:var ingredVal = '@(Model.SearchFields.Ingredients == default ? "": Model.SearchFields.Ingredients)';
+                @:var gramsVal = '@(Model.SearchFields.Grams == default ? "": Model.SearchFields.Grams.ToString())';
+                @:var calVal = '@(Model.SearchFields.Calories == default ? "": Model.SearchFields.Calories.ToString())';
+                @:var cookTimeVal = '@(Model.SearchFields.CookingTime == default ? "": Model.SearchFields.CookingTime.ToString())';
+                @:var priceVal = '@(Model.SearchFields.Price == default ? "": Model.SearchFields.Price.ToString())';
+                @:var createDatVal = '@(Model.SearchFields.CreationDate == default? "": Model.SearchFields.CreationDate.ToString())';
+
+            }
+
+
+        </script>
     }
 </body>
 

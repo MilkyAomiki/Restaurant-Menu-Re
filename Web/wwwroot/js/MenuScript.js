@@ -22,12 +22,7 @@ function orderClickEvents() {
 
     for (var i = 0; i < ths.length; i++) {
         ths[i].addEventListener('click', function (e) {
-            let orderType = "asc";
-            let paramsArr = orderParams.split("-");
-            if (paramsArr.length == 2 && paramsArr[0] == e.currentTarget.textContent.toLowerCase().replace(" ", "") && paramsArr[1] == "asc") {
-                orderType = "desc";
-            }
-            window.location.href = 'menu?' + 'orderColumn=' + e.currentTarget.textContent + "&" + 'orderType=' + orderType;
+            collectParamsAndReload(e.currentTarget);
         });
     }
 }
@@ -49,24 +44,77 @@ function depictSorting() {
     }
 }
 
+function insertSearchVal() {
+    document.getElementsByClassName("search-bar")[0].firstElementChild.value = titleVal;
+    document.getElementsByClassName("search-bar")[1].firstElementChild.value = descrVal;
+    document.getElementsByClassName("search-bar")[2].firstElementChild.value = ingredVal;
+    document.getElementsByClassName("search-bar")[3].firstElementChild.value = gramsVal;
+    document.getElementsByClassName("search-bar")[4].firstElementChild.value = calVal;
+    document.getElementsByClassName("search-bar")[5].firstElementChild.value = cookTimeVal;
+    document.getElementsByClassName("search-bar")[6].firstElementChild.value = priceVal;
+    document.getElementsByClassName("search-bar")[7].firstElementChild.value = createDatVal;
+
+}
+
 function searchBoxClickEvent() {
     let searchBars = document.getElementsByClassName("search-bar");
     for (var i = 0; i < searchBars.length; i++) {
         searchBars[i].firstElementChild.onkeydown = function (e) {
-            let url = '/menu?'
+          
             if (e.code == 'Enter') {
-                for (var i = 0; i < searchBars.length; i++) {
-                    let searchBar = searchBars[i].firstElementChild;
-                    if (searchBar.value != '') {
-                        url += searchBar.getAttribute("name") + '=' + searchBar.value + '&';
-                    }
-                }
-                url = url.slice(0, -1);
-                window.location.href = url;
+                collectParamsAndReload(undefined);
             }
         }
     }
 }
+
+function collectParamsAndReload(orderColumn) {
+    let url = '/menu?'
+    let orderColumnUrl ="";
+    let orderType;
+    let orderTypeUrl = "";
+    let searchUrl = "";
+    let paramsArr = orderParams.split("-");
+    if (orderColumn != undefined) {
+        orderType = "asc";
+        if (paramsArr.length == 2 && paramsArr[0] == orderColumn.textContent.toLowerCase().replace(" ", "") && paramsArr[1] == "asc") {
+            orderType = "desc";
+        }
+        orderColumnUrl = 'orderColumn=' + orderColumn.textContent;
+        orderTypeUrl = "&" + 'orderType=' + orderType;
+
+       //window.location.href = 'menu?' + 'orderColumn=' + e.currentTarget.textContent + "&" + 'orderType=' + orderType;
+
+    } else {
+
+        if (paramsArr.length == 2 && paramsArr[0] != "" && paramsArr[1] != "") {
+            orderColumnUrl = paramsArr[0];
+            orderType = paramsArr[1];
+
+            orderColumnUrl = 'orderColumn=' + paramsArr[0];
+            orderTypeUrl = "&" + 'orderType=' + orderType;
+
+        }
+    }
+    url += orderColumnUrl + orderTypeUrl;
+
+    let searchBars = document.getElementsByClassName("search-bar");
+        for (var i = 0; i < searchBars.length; i++) {
+            let searchBar = searchBars[i].firstElementChild;
+            if (searchBar.value != '') {
+                searchUrl += '&' + searchBar.getAttribute("name") + '=' + searchBar.value;
+            }
+        }
+        if (url == '/menu?') {
+
+            searchUrl = searchUrl.slice(1, searchUrl.length);
+        }
+        url += searchUrl;
+
+    window.location.href = url;
+
+}
+
 
 const mainFunc = function () {
     addRowClickEvents();
@@ -75,6 +123,7 @@ const mainFunc = function () {
     }
     orderClickEvents();
     depictSorting();
+    insertSearchVal();
     searchBoxClickEvent();
 }
 
