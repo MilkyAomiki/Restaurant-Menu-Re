@@ -34,7 +34,7 @@ namespace Infrastructure.Data
 
             builder.Property(e => e.Ingredients)
                 .HasColumnName("ingredients")
-                .HasColumnType("text");
+                .HasColumnType("nvarchar(max)");
 
             builder.Property(e => e.Price)
                 .HasColumnName("price")
