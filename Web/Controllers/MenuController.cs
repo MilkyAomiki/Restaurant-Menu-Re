@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -36,16 +33,43 @@ namespace Web.Controllers
             return View();
         }
 
+
         [HttpGet("/menu")]
-        public IActionResult Menu(int page = 1)
+        public IActionResult Menu(int page = 1, string orderColumn = "", string orderType = null, MenuItem searchFields = null)
         {
-            var items = menuService.SelectRange(20 * (page - 1), 20);
-            var totalPageNum = (menuService.Count-1) / 20 +1;
-            return View(new MenuModel(items, totalPageNum, page));
+            List<MenuItem> items;
+            int itemCount = 20;
+            int downItem = itemCount * (page - 1);
+            var totalPageNum = (menuService.Count - 1) / itemCount + 1;
+
+            if (searchFields.Title == default && searchFields.Description == default && 
+                searchFields.Ingredients == default && searchFields.CreationDate == default && searchFields.Id == default
+                && searchFields.Price == default && searchFields.Grams == default && searchFields.Calories == default && searchFields.CookingTime == default)
+            {
+                searchFields = null;
+            }
+            
+            if (orderColumn != "" && orderType != null && orderColumn != "Ingredients")
+            {
+                orderColumn = Regex.Replace(orderColumn, " ", String.Empty);
+                items = menuService.ListAllItems(downItem, itemCount, orderColumn, orderType, searchFields);
+            }
+            else
+            {
+                items = menuService.ListAllItems(downItem, itemCount, searchFields);
+            }
+
+            return View( new MenuModel(
+                menuItems: items, 
+                totalPageNum: totalPageNum, 
+                pageNum: page, 
+                orderParams: orderColumn.ToLower() + "-" + orderType, 
+                searchFields: searchFields
+                ));
         }
 
         [HttpPost("/menu")]
-        public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] MenuItemDTO item)
+        public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] DTO.MenuItemDTO item)
         {
             try
             {
@@ -62,7 +86,7 @@ namespace Web.Controllers
                     if (columnNameMatch.Success)
                     {
                         var reg = new Regex(@"\(|\)");
-                        columnName = reg.Replace(columnNameMatch.Value, String.Empty);
+                        columnName = reg.Replace(columnNameMatch.Value, String.Empty);  
                     }
                     ModelState.AddModelError("Title#" ,$"The given title '{columnName}' have already been created ");
                     return View("NewItem", item);
@@ -84,7 +108,7 @@ namespace Web.Controllers
         }
 
         [HttpPost("/menu/{id}")]
-        public IActionResult UpdateItem(MenuItemDTO item)
+        public IActionResult UpdateItem(DTO.MenuItemDTO item)
         {
             if (!ModelState.IsValid)
             {
@@ -117,12 +141,10 @@ namespace Web.Controllers
             return RedirectToAction("SingleItem", new { id = sendItem.Id });
         }
 
-
         [HttpPost("/menu/delete")]
         public IActionResult DeleteItem(int id)
         {
-            var item = menuService.GetItem(id);
-            menuService.DeleteItem(item);
+            menuService.DeleteItem(id);
             return Ok();
         }
 

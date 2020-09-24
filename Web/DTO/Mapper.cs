@@ -1,14 +1,10 @@
 ﻿using ApplicationCore.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Web.DTO
 {
     public static class Mapper
     {
-        public static MenuItemDTO Map(MenuItem menuItem)
+        public static MenuItemDTO Map(ApplicationCore.Entities.MenuItem menuItem)
         {
             var dtoItem = new MenuItemDTO
             {
@@ -25,9 +21,9 @@ namespace Web.DTO
             return dtoItem;
         }
 
-        public static MenuItem Map(MenuItemDTO dtoItem)
+        public static ApplicationCore.Entities.MenuItem Map(MenuItemDTO dtoItem)
         {
-            var menuItem = new MenuItem
+            var menuItem = new ApplicationCore.Entities.MenuItem
             {
                 Id = dtoItem.Id,
                 Title = dtoItem.Title,

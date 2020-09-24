@@ -48,3 +48,38 @@ main {
 a{
     text-decoration:none;
 }
+
+#items-table tr th:hover {
+    background-color: #f0faff;
+    cursor:pointer;
+}
+
+#search-row td input {
+    width:95%;
+    border:none;
+    outline:none;
+    border-top:1px solid #e6e6e6;
+    text-align:center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    margin: 0 auto;
+}
+#search-table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    max-width: 1600px;
+}
+
+    #search-table th, #search-table td, #search-table tr {
+        padding: 3px;
+        width: 300px;
+        height: 25px;
+        word-break: break-word;
+    }
+
+#search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
