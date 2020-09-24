@@ -44,7 +44,7 @@ namespace Web.Controllers
 
             if (searchFields.Title == default && searchFields.Description == default && 
                 searchFields.Ingredients == default && searchFields.CreationDate == default && searchFields.Id == default
-                && searchFields.Price == default && searchFields.Grams == default && searchFields.Calories == default && searchFields.CookingTime == default)
+                && searchFields.Price == default && searchFields.Grams == default && searchFields.Calories == default && searchFields.CookingTime == default && searchFields.CookingTimeFormatted == default)
             {
                 searchFields = null;
             }
@@ -69,7 +69,7 @@ namespace Web.Controllers
         }
 
         [HttpPost("/menu")]
-        public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] DTO.MenuItemDTO item)
+        public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] MenuItemDTO item)
         {
             try
             {

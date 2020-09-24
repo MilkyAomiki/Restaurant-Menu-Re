@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApplicationCore.Entities
 {
@@ -13,5 +15,7 @@ namespace ApplicationCore.Entities
         public int? Grams { get; set; }
         public decimal? Calories { get; set; }
         public int? CookingTime { get; set; }
+        [NotMapped]
+        public TimeSpan CookingTimeFormatted { get; set; }
     }
 }

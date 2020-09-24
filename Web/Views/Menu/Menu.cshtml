@@ -44,7 +44,7 @@
                 <td class="search-bar"><input type="text" name="Ingredients" value="" placeholder="Ingredients" /></td>
                 <td class="search-bar"><input type="text" name="Grams" value="" placeholder="Grams" /></td>
                 <td class="search-bar"><input type="text" name="Calories" value="" placeholder="Calories" /></td>
-                <td class="search-bar"><input type="text" name="CookingTime" value="" placeholder="CookingTime" /></td>
+                <td class="search-bar"><input type="text" name="CookingTimeFormatted" value="" placeholder="CookingTime" /></td>
                 <td class="search-bar"><input type="text" name="Price" value="" placeholder="Price" /></td>
                 <td class="search-bar"><input type="text" name="CreationDate" value="" placeholder="Creation Date" /></td>
             </tr>
@@ -74,7 +74,7 @@
                         @:<td>@item.Ingredients</td>
                         @:<td>@item.Grams</td>
                         @:<td>@item.Calories</td>
-                        @:<td>@item.CookingTime</td>
+                        @:<td>@item.CookingTimeFormatted</td>
                         @:<td>@item.Price</td>
                         @:<td>@item.CreationDate</td>
 
@@ -119,7 +119,7 @@
                 @:var ingredVal = '@(Model.SearchFields.Ingredients == default ? "": Model.SearchFields.Ingredients)';
                 @:var gramsVal = '@(Model.SearchFields.Grams == default ? "": Model.SearchFields.Grams.ToString())';
                 @:var calVal = '@(Model.SearchFields.Calories == default ? "": Model.SearchFields.Calories.ToString())';
-                @:var cookTimeVal = '@(Model.SearchFields.CookingTime == default ? "": Model.SearchFields.CookingTime.ToString())';
+                @:var cookTimeVal = '@(Model.SearchFields.CookingTimeFormatted == default ? "": Model.SearchFields.CookingTimeFormatted.ToString())';
                 @:var priceVal = '@(Model.SearchFields.Price == default ? "": Model.SearchFields.Price.ToString())';
                 @:var createDatVal = '@(Model.SearchFields.CreationDate == default? "": Model.SearchFields.CreationDate.ToString())';
 

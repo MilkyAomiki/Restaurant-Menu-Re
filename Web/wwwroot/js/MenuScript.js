@@ -83,8 +83,6 @@ function collectParamsAndReload(orderColumn) {
         orderColumnUrl = 'orderColumn=' + orderColumn.textContent;
         orderTypeUrl = "&" + 'orderType=' + orderType;
 
-       //window.location.href = 'menu?' + 'orderColumn=' + e.currentTarget.textContent + "&" + 'orderType=' + orderType;
-
     } else {
 
         if (paramsArr.length == 2 && paramsArr[0] != "" && paramsArr[1] != "") {

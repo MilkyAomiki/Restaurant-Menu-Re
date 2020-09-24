@@ -44,8 +44,9 @@ namespace ApplicationCore.DataTransformation
                         expressions.Add(expr);
                         break;
                     case "CookingTime":
-                        if (searchItem.CookingTime == default) break;
-                        expr = (MenuItem item) => item.CookingTime.Value == (searchItem.CookingTime).Value;
+                        if (searchItem.CookingTime == default && searchItem.CookingTimeFormatted == default) break;
+                        if (searchItem.CookingTime == default) searchItem.CookingTime = (int)searchItem.CookingTimeFormatted.TotalMinutes;
+                        expr = (MenuItem item) => item.CookingTime.Value == searchItem.CookingTime.Value;
                         expressions.Add(expr);
                         break;
                     case "Price":
@@ -76,7 +77,8 @@ namespace ApplicationCore.DataTransformation
                 Calories = (Convert.ToDecimal(x.Grams) / 100) * x.Calories,
                 Price = x.Price,
                 CookingTime = x.CookingTime,
-                CreationDate = x.CreationDate
+                CreationDate = x.CreationDate,
+                CookingTimeFormatted = TimeSpan.FromMinutes((double)x.CookingTime)
             };
 
             return expression;
