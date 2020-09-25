@@ -25,6 +25,9 @@ const swapToReadonly = function () {
 
 const assignDeleteClick = function () {
     document.getElementById("delete-button").onclick = function () {
+        if (!window.confirm("Are you sure you want to delete this item?")) {
+            return;
+        }
         let xhr = new XMLHttpRequest();
         let id = document.getElementById("delete-button").getAttribute('value');
         xhr.open('post', '/menu/delete');
