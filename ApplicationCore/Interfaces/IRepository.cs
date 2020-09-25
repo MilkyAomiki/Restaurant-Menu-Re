@@ -15,7 +15,5 @@ namespace ApplicationCore.Interfaces
         void Add(T entity);
         T Update(T entity);
         void Delete(int id);
-
-        
     }
 }

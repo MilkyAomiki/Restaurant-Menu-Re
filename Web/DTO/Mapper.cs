@@ -4,7 +4,7 @@ namespace Web.DTO
 {
     public static class Mapper
     {
-        public static MenuItemDTO Map(ApplicationCore.Entities.MenuItem menuItem)
+        public static MenuItemDTO Map(MenuItem menuItem)
         {
             var dtoItem = new MenuItemDTO
             {
@@ -21,9 +21,9 @@ namespace Web.DTO
             return dtoItem;
         }
 
-        public static ApplicationCore.Entities.MenuItem Map(MenuItemDTO dtoItem)
+        public static MenuItem Map(MenuItemDTO dtoItem)
         {
-            var menuItem = new ApplicationCore.Entities.MenuItem
+            var menuItem = new MenuItem
             {
                 Id = dtoItem.Id,
                 Title = dtoItem.Title,

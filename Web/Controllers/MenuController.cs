@@ -21,7 +21,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("/")]
-        public IActionResult Index()
+        public IActionResult Origin()
         {
             return Redirect("/menu");
         }
@@ -32,7 +32,6 @@ namespace Web.Controllers
         {
             return View();
         }
-
 
         [HttpGet("/menu")]
         public IActionResult Menu(int page = 1, string orderColumn = "", string orderType = null, MenuItem searchFields = null)
@@ -49,7 +48,7 @@ namespace Web.Controllers
                 searchFields = null;
             }
             
-            if (orderColumn != "" && orderType != null && orderColumn != "Ingredients")
+            if (orderColumn != "" && orderType != null)
             {
                 orderColumn = Regex.Replace(orderColumn, " ", String.Empty);
                 items = menuService.ListAllItems(downItem, itemCount, orderColumn, orderType, searchFields);
@@ -102,14 +101,13 @@ namespace Web.Controllers
         public IActionResult SingleItem(int id)
         {
             var item = menuService.GetItem(id);
-
             var sendItem = Mapper.Map(item);
 
             return View(new SingleItemModel(sendItem));
         }
 
         [HttpPost("/menu/{id}")]
-        public IActionResult UpdateItem(DTO.MenuItemDTO item)
+        public IActionResult UpdateItem(MenuItemDTO item)
         {
             if (!ModelState.IsValid)
             {
@@ -137,7 +135,6 @@ namespace Web.Controllers
                 }
                 throw;
             }
-
 
             return RedirectToAction("SingleItem", new { id = sendItem.Id });
         }
