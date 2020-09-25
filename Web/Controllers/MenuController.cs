@@ -61,7 +61,8 @@ namespace Web.Controllers
 
             return View( new MenuModel(
                 menuItems: items, 
-                totalPageNum: totalPageNum, 
+                totalItemsNum: menuService.Count,
+                totalPagesNum: totalPageNum, 
                 pageNum: page, 
                 orderParams: orderColumn.ToLower() + "-" + orderType, 
                 searchFields: searchFields

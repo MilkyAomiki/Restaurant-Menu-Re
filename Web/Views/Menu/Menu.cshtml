@@ -4,12 +4,12 @@
     int endPageNum;
     ViewData["Title"] = "Menu";
     Layout = "_Layout";
-    if (Model.TotalPageNum > 7)
+    if (Model.TotalPagesNum > 7)
     {
         if (Model.PageNum > 7)
         {
             startPageNum = Model.PageNum - 3;
-            endPageNum = Model.PageNum + 3 > Model.TotalPageNum ? Model.TotalPageNum : Model.PageNum + 3;
+            endPageNum = Model.PageNum + 3 > Model.TotalPagesNum ? Model.TotalPagesNum : Model.PageNum + 3;
         }
         else
         {
@@ -20,7 +20,7 @@
     else
     {
         startPageNum = 1;
-        endPageNum = Model.TotalPageNum;
+        endPageNum = Model.TotalPagesNum;
     }
 
 
@@ -38,7 +38,7 @@
     <main>
         <table id="search-table">
             <tr id="search-row">
-                
+
                 <td class="search-bar"><input type="text" name="Title" value="" placeholder="Title" /></td>
                 <td class="search-bar"><input type="text" name="Description" value="" placeholder="Description" /></td>
                 <td class="search-bar"><input type="text" name="Ingredients" value="" placeholder="Ingredients" /></td>
@@ -68,6 +68,8 @@
                     @:<tr class="table-data">
 
 
+
+
                         @:<td id="id" hidden>@item.Id</td>
                         @:<td>@item.Title</td>
                         @:<td>@item.Description</td>
@@ -79,25 +81,30 @@
                         @:<td>@item.CreationDate</td>
 
 
+
+
                     @:</tr>
                 }
             }
 
         </table>
-            <table id="pagination">
-                <tr>
-                    @for (int i = startPageNum; i <= endPageNum; i++)
+        <table id="pagination">
+            <tr>
+                @for (int i = startPageNum; i <= endPageNum; i++)
+                {
+                    if (i == Model.PageNum)
                     {
-                        if (i == Model.PageNum)
-                        {
-                            <td>@i</td>
-                            continue;
-                        }
-                        <td><a href="/menu?page=@i">@i</a></td>
+                        <td>@i</td>
+                        continue;
                     }
-                </tr>
-    </table>
+                    <td><a href="/menu?page=@i">@i</a></td>
+                }
+            </tr>
+        </table>
+
     </main>
+    <span style="margin-left: 25px;">Showing @Model.MenuItems.Count item(s) out of the total number of @Model.TotalItemsNum items</span>
+
 
     @section complementary{
         <script>
