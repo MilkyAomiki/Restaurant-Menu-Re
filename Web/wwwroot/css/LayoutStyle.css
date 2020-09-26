@@ -50,3 +50,7 @@ button {
         background-color: #ebebeb;
         cursor: pointer;
     }
+footer{
+    display:flex;
+    justify-content:left;
+}

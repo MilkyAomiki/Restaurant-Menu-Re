@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Entities.Data;
+using ApplicationCore.Entities.DataRepresentation;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -7,7 +8,7 @@ namespace ApplicationCore.DataTransformation
 {
     public static class Expressions
     {
-        public static List<Expression<Func<MenuItem, bool>>> GenerateComparisonExpressions(MenuItem searchItem)
+        public static List<Expression<Func<MenuItem, bool>>> GenerateComparisonExpressions(SearchData searchItem)
         {
             List<Expression<Func<MenuItem, bool>>> expressions = new List<Expression<Func<MenuItem, bool>>>();
             var properties = searchItem.GetType().GetProperties();
@@ -43,9 +44,9 @@ namespace ApplicationCore.DataTransformation
                         expressions.Add(expr);
                         break;
                     case "CookingTime":
-                        if (searchItem.CookingTime == default && searchItem.CookingTimeFormatted == default) break;
-                        if (searchItem.CookingTime == default) searchItem.CookingTime = (int)searchItem.CookingTimeFormatted.TotalMinutes;
-                        expr = (MenuItem item) => item.CookingTime.Value == searchItem.CookingTime.Value;
+                        if (searchItem.CookingTime == null) break;
+                        var unformatted = (int)searchItem.CookingTime.Value.TotalMinutes;
+                        expr = (MenuItem item) => item.CookingTime.Value == unformatted;
                         expressions.Add(expr);
                         break;
                     case "Price":
@@ -62,25 +63,6 @@ namespace ApplicationCore.DataTransformation
             }
 
             return expressions;
-        }
-
-        public static Expression<Func<MenuItem, MenuItem>> GenerateTransformationExpression()
-        {
-            Expression<Func<MenuItem, MenuItem>> expression = x => new MenuItem
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Description = x.Description,
-                Ingredients = x.Ingredients,
-                Grams = x.Grams,
-                Calories = (Convert.ToDecimal(x.Grams) / 100) * x.Calories,
-                Price = x.Price,
-                CookingTime = x.CookingTime,
-                CreationDate = x.CreationDate,
-                CookingTimeFormatted = TimeSpan.FromMinutes((double)x.CookingTime)
-            };
-
-            return expression;
         }
     }
 }

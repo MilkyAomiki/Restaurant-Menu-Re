@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using ApplicationCore.Entities;
+using ApplicationCore.Entities.Data;
+using ApplicationCore.Entities.DataRepresentation;
+using ApplicationCore.Exceptions;
 using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using Web.DTO;
+using Web.DTO.DataDisplay;
+using Web.DTO.DataTransfer;
 using Web.Models.Menu;
 
 namespace Web.Controllers
 {
     public class MenuController : Controller
     {
-        private readonly IMenuService<MenuItem> menuService;
+        private readonly IMenuService<MenuItem, SearchData> menuService;
 
-        public MenuController(IMenuService<MenuItem> menuService)
+        public MenuController(IMenuService<MenuItem, SearchData> menuService)
         {
             this.menuService = menuService;
         }
@@ -34,7 +36,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("/menu")]
-        public IActionResult Menu(int page = 1, string orderColumn = "", string orderType = null, MenuItem searchFields = null)
+        public IActionResult Menu(int page = 1, string orderColumn = "", string orderType = null, SearchData searchFields = null)
         {
             List<MenuItem> items;
             int itemCount = 20;
@@ -42,8 +44,8 @@ namespace Web.Controllers
             var totalPageNum = (menuService.Count - 1) / itemCount + 1;
 
             if (searchFields.Title == default && searchFields.Description == default && 
-                searchFields.Ingredients == default && searchFields.CreationDate == default && searchFields.Id == default
-                && searchFields.Price == default && searchFields.Grams == default && searchFields.Calories == default && searchFields.CookingTime == default && searchFields.CookingTimeFormatted == default)
+                searchFields.Ingredients == default && searchFields.CreationDate == default
+                && searchFields.Price == default && searchFields.Grams == default && searchFields.Calories == default && searchFields.CookingTime == default && searchFields.CookingTime == default)
             {
                 searchFields = null;
             }
@@ -58,8 +60,28 @@ namespace Web.Controllers
                 items = menuService.ListAllItems(downItem, itemCount, searchFields);
             }
 
+            List<MenuViewData> itemsToDisplay = new List<MenuViewData>();
+            for (int i = 0; i < items.Count; i++)
+            {
+                MenuViewData itemToView = new MenuViewData
+                {
+                    Id = items[i].Id,
+                    Title = items[i].Title,
+                    Description = items[i].Description,
+                    Ingredients = items[i].Ingredients,
+                    Calories = (Convert.ToDecimal(items[i].Grams) / 100) * items[i].Calories,
+                    CookingTime = TimeSpan.FromMinutes((double)items[i].CookingTime),
+                    CreationDate = items[i].CreationDate,
+                    Grams = items[i].Grams,
+                    Price = items[i].Price
+
+                };
+
+                itemsToDisplay.Add(itemToView);
+            }
+
             return View( new MenuModel(
-                menuItems: items, 
+                menuItems: itemsToDisplay, 
                 totalItemsNum: menuService.Count,
                 totalPagesNum: totalPageNum, 
                 pageNum: page, 
@@ -74,24 +96,11 @@ namespace Web.Controllers
             try
             {
                 menuService.AddNewItem(Mapper.Map(item));
-
             }
-            catch (DbUpdateException dbexc)
+            catch (TitleException titleExc)
             {
-                var innerexc = dbexc.InnerException;
-                string columnName = String.Empty;
-                if (innerexc is SqlException)
-                {
-                    var columnNameMatch = Regex.Match(innerexc.Message, @"\(\w*|\d\)");
-                    if (columnNameMatch.Success)
-                    {
-                        var reg = new Regex(@"\(|\)");
-                        columnName = reg.Replace(columnNameMatch.Value, String.Empty);  
-                    }
-                    ModelState.AddModelError("Title#" ,$"The given title '{columnName}' have already been created ");
-                    return View("NewItem", item);
-                }
-                throw;
+                ModelState.AddModelError("Title#" ,titleExc.Message);
+                return View("NewItem", item);
             }
 
             return Redirect("/menu");
@@ -118,22 +127,10 @@ namespace Web.Controllers
             {
                 sendItem = menuService.ChangeItem(sendItem);
             }
-            catch (DbUpdateException dbexc)
+            catch (TitleException titleExc)
             {
-                var innerexc = dbexc.InnerException;
-                string columnName = String.Empty;
-                if (innerexc is SqlException)
-                {
-                    var columnNameMatch = Regex.Match(innerexc.Message, @"\(\w*|\d\)");
-                    if (columnNameMatch.Success)
-                    {
-                        var reg = new Regex(@"\(|\)");
-                        columnName = reg.Replace(columnNameMatch.Value, String.Empty);
-                    }
-                    ModelState.AddModelError("MenuItem.Title#", $"Given title '{columnName}' have already been created ");
-                    return View("SingleItem", new SingleItemModel(item, true));
-                }
-                throw;
+                ModelState.AddModelError("MenuItem.Title#", titleExc.Message);
+                return View("SingleItem", new SingleItemModel(item, true));
             }
 
             return RedirectToAction("SingleItem", new { id = sendItem.Id });

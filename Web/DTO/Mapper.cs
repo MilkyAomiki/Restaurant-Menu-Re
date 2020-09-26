@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Entities.Data;
+using Web.DTO.DataTransfer;
 
 namespace Web.DTO
 {

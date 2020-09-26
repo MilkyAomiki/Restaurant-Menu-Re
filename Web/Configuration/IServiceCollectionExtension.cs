@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Entities.Data;
+using ApplicationCore.Entities.DataRepresentation;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Services;
 using Infrastructure.Data;
@@ -12,7 +13,7 @@ namespace Web.Configuration
         public static IServiceCollection ConfigureCore(this IServiceCollection services)
         {
             services.AddScoped<IRepository<MenuItem>, MenuRepository>();
-            services.AddScoped<IMenuService<MenuItem>, MenuService>();
+            services.AddScoped<IMenuService<MenuItem, SearchData>, MenuService>();
             return services;
         }
 

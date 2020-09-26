@@ -1,11 +1,15 @@
 ﻿using ApplicationCore.DataTransformation;
-using ApplicationCore.Entities;
+using ApplicationCore.Entities.Data;
+using ApplicationCore.Exceptions;
 using ApplicationCore.Interfaces;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Infrastructure.Data
 {
@@ -24,7 +28,27 @@ namespace Infrastructure.Data
         public void Add(MenuItem entity)
         {
              _context.MenuItem.Add(entity);
-             _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException dbexc)
+            {
+                var innerexc = dbexc.InnerException;
+                string columnName = String.Empty;
+                if (innerexc is SqlException)
+                {
+                    var columnNameMatch = Regex.Match(innerexc.Message, @"\(\w*|\d\)");
+                    if (columnNameMatch.Success)
+                    {
+                        var reg = new Regex(@"\(|\)");
+                        columnName = reg.Replace(columnNameMatch.Value, String.Empty);
+                        throw new TitleException(columnName, $"Given title '{columnName}' have already been created");
+                    }
+
+                }
+                throw;
+            }
         }
 
         public void Delete(int id)
@@ -52,7 +76,7 @@ namespace Infrastructure.Data
             IQueryable<MenuItem> selectedItems = _context.MenuItem;
 
             if (!(rules is null))  selectedItems = selectedItems.Where(rules);
-            selectedItems = selectedItems.Skip(index).Take(count).Select(Expressions.GenerateTransformationExpression());
+            selectedItems = selectedItems.Skip(index).Take(count);
 
             return selectedItems.ToList();
         }
@@ -63,7 +87,7 @@ namespace Infrastructure.Data
 
             if (!(rules is null)) selectedItems = selectedItems.Where(rules);
             selectedItems = selectedItems.OrderByKey(orderColumn, orderType);
-            selectedItems = selectedItems.Skip(index).Take(count).Select(Expressions.GenerateTransformationExpression());
+            selectedItems = selectedItems.Skip(index).Take(count);
 
             return selectedItems.ToList();
         }
@@ -73,7 +97,31 @@ namespace Infrastructure.Data
         public MenuItem Update(MenuItem entity)
         {
            var newEntity = _context.MenuItem.Update(entity).Entity;
-           _context.SaveChanges();
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException dbexc)
+            {
+                var innerexc = dbexc.InnerException;
+                string columnName = String.Empty;
+                if (innerexc is SqlException)
+                {
+                    var columnNameMatch = Regex.Match(innerexc.Message, @"\(\w*|\d\)");
+                    if (columnNameMatch.Success)
+                    {
+                        var reg = new Regex(@"\(|\)");
+                        columnName = reg.Replace(columnNameMatch.Value, String.Empty);
+                        var titleExc = new TitleException(columnName, $"Given title '{columnName}' have already been created");
+
+                        throw titleExc;
+                    }
+                    
+                }
+                throw;
+            }
+     
            return newEntity;
         }
 

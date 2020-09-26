@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Web.DTO
+namespace Web.DTO.DataTransfer
 {
     public class MenuItemDTO
     {

@@ -1,12 +1,13 @@
 ﻿using ApplicationCore.DataTransformation;
-using ApplicationCore.Entities;
+using ApplicationCore.Entities.Data;
+using ApplicationCore.Entities.DataRepresentation;
 using ApplicationCore.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace ApplicationCore.Services
 {
-    public class MenuService : IMenuService<MenuItem>
+    public class MenuService : IMenuService<MenuItem, SearchData>
     {
         private readonly IRepository<MenuItem> _repository;
 
@@ -24,7 +25,7 @@ namespace ApplicationCore.Services
 
         public List<MenuItem> ListAllItems() => _repository.ListAll();
 
-        public List<MenuItem> ListAllItems(int index, int count, MenuItem searchItem = null)
+        public List<MenuItem> ListAllItems(int index, int count, SearchData searchItem = null)
         {
             if (searchItem != null)
             {
@@ -34,15 +35,12 @@ namespace ApplicationCore.Services
             return _repository.ListAll(index, count);
         }
 
-
-
-        public List<MenuItem> ListAllItems(int index, int count, string orderColumn, string orderType, MenuItem searchItem = null)
+        public List<MenuItem> ListAllItems(int index, int count, string orderColumn, string orderType, SearchData searchItem = null)
         {
             if (searchItem != null)
             {
                 var expressionChecker = Expressions.GenerateComparisonExpressions(searchItem);
                 return _repository.ListAll(index, count, orderColumn, orderType, expressionChecker);
-
             }
 
             return _repository.ListAll(index, count, orderColumn, orderType);

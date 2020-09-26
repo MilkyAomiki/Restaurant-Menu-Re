@@ -1,4 +1,4 @@
-﻿using Web.DTO;
+﻿using Web.DTO.DataTransfer;
 
 namespace Web.Models.Menu
 {
