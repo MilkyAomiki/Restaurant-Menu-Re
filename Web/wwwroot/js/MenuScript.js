@@ -54,7 +54,7 @@ function MainFunctionality(){
         }
         for (let i = 0; i < headers.length; i++) {
             if (headers[i].getAttribute("id") == orderParams.column) {
-                if (orderParams == 'desc') {
+                if (orderParams.type == 'desc') {
                     headers[i].innerHTML += '<img src="/pics/arrow_drop_down.svg" alt="desc" />';
                 } else {
                     headers[i].innerHTML += '<img src="/pics/arrow_drop_up.svg" alt="asc" />';
