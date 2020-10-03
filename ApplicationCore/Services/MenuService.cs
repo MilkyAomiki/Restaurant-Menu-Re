@@ -27,6 +27,8 @@ namespace ApplicationCore.Services
 
         public List<MenuItem> ListAllItems(int index, int count, SearchData searchItem = null)
         {
+            searchItem = SurveyForNullProperties(searchItem);
+
             if (searchItem != null)
             {
                 var expressionChecker = Expressions.GenerateComparisonExpressions(searchItem);
@@ -37,6 +39,8 @@ namespace ApplicationCore.Services
 
         public List<MenuItem> ListAllItems(int index, int count, string orderColumn, string orderType, SearchData searchItem = null)
         {
+            searchItem = SurveyForNullProperties(searchItem);
+
             if (searchItem != null)
             {
                 var expressionChecker = Expressions.GenerateComparisonExpressions(searchItem);
@@ -47,5 +51,25 @@ namespace ApplicationCore.Services
         }
 
         public List<MenuItem> Find(Func<MenuItem, bool> rules) => _repository.Find(rules);
+
+        private SearchData SurveyForNullProperties(SearchData searchData)
+        {
+            var props = searchData.GetType().GetProperties();
+            bool doesContainNonDefault = false;
+            for (int i = 0; i <  props.Length; i++)
+            {
+                var val = props[i].GetValue(searchData);
+                if (val != null)
+                {
+                    doesContainNonDefault = true;
+                    break;
+                }
+            }
+            if (doesContainNonDefault == false)
+            {
+                searchData = null;
+            }
+            return searchData;
+        }
     }
 }

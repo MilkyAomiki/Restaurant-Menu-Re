@@ -22,7 +22,7 @@ namespace Infrastructure.Migrations
                     calories = table.Column<decimal>(type: "numeric(5, 4)", nullable: true),
                     cooking_time = table.Column<int>(nullable: true)
                 },
-                constraints: table =>
+                constraints: table => 
                 {
                     table.PrimaryKey("PK_MenuItem", x => x.id);
                 });

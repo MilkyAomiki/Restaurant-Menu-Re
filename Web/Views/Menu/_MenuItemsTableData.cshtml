@@ -1,0 +1,20 @@
+﻿@model List<Web.DTO.DataDisplay.MenuViewData>
+@{
+
+}
+    @{
+        foreach (var item in Model)
+        {
+            @:<tr class="table-data">
+                @:<td id="id" hidden>@item.Id</td>
+                @:<td>@item.Title</td>
+                @:<td>@item.Description</td>
+                @:<td>@item.Ingredients</td>
+                @:<td>@item.Grams</td>
+                @:<td>@item.Calories</td>
+                @:<td>@item.CookingTime</td>
+                @:<td>@item.Price</td>
+                @:<td>@item.CreationDate</td>
+            @:</tr>
+        }
+    }

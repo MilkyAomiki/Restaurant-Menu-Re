@@ -42,13 +42,6 @@ namespace Web.Controllers
             int itemCount = 20;
             int downItem = itemCount * (page - 1);
             var totalPageNum = (menuService.Count - 1) / itemCount + 1;
-
-            if (searchFields.Title == default && searchFields.Description == default && 
-                searchFields.Ingredients == default && searchFields.CreationDate == default
-                && searchFields.Price == default && searchFields.Grams == default && searchFields.Calories == default && searchFields.CookingTime == default && searchFields.CookingTime == default)
-            {
-                searchFields = null;
-            }
             
             if (orderColumn != "" && orderType != null)
             {
@@ -90,12 +83,54 @@ namespace Web.Controllers
                 ));
         }
 
+        [HttpGet("/menu/items")]
+        public PartialViewResult MenuItemsTableData(int page = 1, string orderColumn = "", string orderType = null, SearchData searchFields = null)
+        {
+
+            List<MenuItem> items;
+            int itemCount = 20;
+            int downItem = itemCount * (page - 1);
+            var totalPageNum = (menuService.Count - 1) / itemCount + 1;
+
+            if (orderColumn != "" && orderType != null)
+            {
+                orderColumn = Regex.Replace(orderColumn, " ", String.Empty);
+                items = menuService.ListAllItems(downItem, itemCount, orderColumn, orderType, searchFields);
+            }
+            else
+            {
+                items = menuService.ListAllItems(downItem, itemCount, searchFields);
+            }
+
+            List<MenuViewData> itemsToDisplay = new List<MenuViewData>();
+            for (int i = 0; i < items.Count; i++)
+            {
+                MenuViewData itemToView = new MenuViewData
+                {
+                    Id = items[i].Id,
+                    Title = items[i].Title,
+                    Description = items[i].Description,
+                    Ingredients = items[i].Ingredients,
+                    Calories = (Convert.ToDecimal(items[i].Grams) / 100) * items[i].Calories,
+                    CookingTime = TimeSpan.FromMinutes((double)items[i].CookingTime),
+                    CreationDate = items[i].CreationDate,
+                    Grams = items[i].Grams,
+                    Price = items[i].Price
+
+                };
+
+                itemsToDisplay.Add(itemToView);
+            }
+            return PartialView("_MenuItemsTableData", itemsToDisplay);
+        }
+
         [HttpPost("/menu")]
         public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] MenuItemDTO item)
         {
+            var sendItem = Mapper.Map(item);
             try
             {
-                menuService.AddNewItem(Mapper.Map(item));
+                menuService.AddNewItem(sendItem);
             }
             catch (TitleException titleExc)
             {

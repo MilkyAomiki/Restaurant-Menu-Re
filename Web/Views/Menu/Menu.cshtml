@@ -38,7 +38,6 @@
     <main>
         <table id="search-table">
             <tr id="search-row">
-
                 <td class="search-bar"><input type="text" name="Title" value="" placeholder="Title" /></td>
                 <td class="search-bar"><input type="text" name="Description" value="" placeholder="Description" /></td>
                 <td class="search-bar"><input type="text" name="Ingredients" value="" placeholder="Ingredients" /></td>
@@ -52,33 +51,19 @@
         <table id="items-table" border="1">
 
             <tr id="@Model.OrderParams">
-                <th class="column-name">Title</th>
-                <th class="column-name">Description</th>
-                <th class="column-name">Ingredients</th>
-                <th class="column-name">Grams</th>
-                <th class="column-name">Calories</th>
-                <th class="column-name">Cooking time</th>
-                <th class="column-name">Price</th>
-                <th class="column-name">Creation Date</th>
+                <th class="column-name" id="title">Title</th>
+                <th class="column-name" id="description">Description</th>
+                <th class="column-name" id="ingredients">Ingredients</th>
+                <th class="column-name" id="grams">Grams</th>
+                <th class="column-name" id="calories">Calories</th>
+                <th class="column-name" id="cookingtime">Cooking time</th>
+                <th class="column-name" id="price">Price</th>
+                <th class="column-name" id="creationdate">Creation Date</th>
             </tr>
-
-            @{
-                foreach (var item in Model.MenuItems)
-                {
-                    @:<tr class="table-data">
-                        @:<td id="id" hidden>@item.Id</td>
-                        @:<td>@item.Title</td>
-                        @:<td>@item.Description</td>
-                        @:<td>@item.Ingredients</td>
-                        @:<td>@item.Grams</td>
-                        @:<td>@item.Calories</td>
-                        @:<td>@item.CookingTime</td>
-                        @:<td>@item.Price</td>
-                        @:<td>@item.CreationDate</td>
-                    @:</tr>
-                }
-            }
-
+            <tbody id="menu-items-rows">
+                @(await Html.PartialAsync("_MenuItemsTableData.cshtml", Model.MenuItems))
+            </tbody>
+            <!--Html.RenderPartialAsync("_MenuItemsTableData.cshtml", Model.MenuItems) How does that work-->
         </table>
         <table id="pagination">
             <tr>
@@ -102,27 +87,33 @@
 
     @section complementary{
         <script>
-            var orderParams = "@Model.OrderParams";
 
-            var titleVal = '';
-            var descrVal = '';
-            var ingredVal = '';
-            var gramsVal = '';
-            var calVal = '';
-            var cookTimeVal = '';
-            var priceVal = '';
-            var createDatVal = '';
+            var orderParams = {
+                column: "@Model.OrderParams.Split("-")[0]",
+                type: "@Model.OrderParams.Split("-")[0]",
+                formerColumn: ""
+            }
+            var searchFileds = {
+                titleVal: '',
+                descrVal: '',
+                ingredVal: '',
+                gramsVal: '',
+                calVal: '',
+                cookTimeVal: '',
+                priceVal: '',
+                createDatVal: '',
+            }
 
             @if (Model.SearchFields != null)
             {
-                @:var titleVal = '@(Model.SearchFields.Title == default ? "": Model.SearchFields.Title)';
-                @:var descrVal = '@(Model.SearchFields.Description == default ? "": Model.SearchFields.Description)';
-                @:var ingredVal = '@(Model.SearchFields.Ingredients == default ? "": Model.SearchFields.Ingredients)';
-                @:var gramsVal = '@(Model.SearchFields.Grams == default ? "": Model.SearchFields.Grams.ToString())';
-                @:var calVal = '@(Model.SearchFields.Calories == default ? "": Model.SearchFields.Calories.ToString())';
-                @:var cookTimeVal = '@(Model.SearchFields.CookingTime == default ? "": Model.SearchFields.CookingTime.ToString())';
-                @:var priceVal = '@(Model.SearchFields.Price == default ? "": Model.SearchFields.Price.ToString())';
-                @:var createDatVal = '@(Model.SearchFields.CreationDate == default? "": Model.SearchFields.CreationDate.ToString())';
+                @:searchFileds.titleVal = '@(Model.SearchFields.Title == default ? "": Model.SearchFields.Title)';
+                @:searchFileds.descrVal = '@(Model.SearchFields.Description == default ? "": Model.SearchFields.Description)';
+                @:searchFileds.ingredVal = '@(Model.SearchFields.Ingredients == default ? "": Model.SearchFields.Ingredients)';
+                @:searchFileds.gramsVal = '@(Model.SearchFields.Grams == default ? "": Model.SearchFields.Grams.ToString())';
+                @:searchFileds.calVal = '@(Model.SearchFields.Calories == default ? "": Model.SearchFields.Calories.ToString())';
+                @:searchFileds.cookTimeVal = '@(Model.SearchFields.CookingTime == default ? "": Model.SearchFields.CookingTime.ToString())';
+                @:searchFileds.priceVal = '@(Model.SearchFields.Price == default ? "": Model.SearchFields.Price.ToString())';
+                @:searchFileds.createDatVal = '@(Model.SearchFields.CreationDate == default? "": Model.SearchFields.CreationDate.ToString())';
 
             }
         </script>
