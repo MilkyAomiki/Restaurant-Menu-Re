@@ -1,7 +1,5 @@
-﻿window.mainFunctions = new MainFunctionality();
-
-function MainFunctionality(){
-    this.addRowClickEvents = function () {
+﻿MainFunctionality = {
+    addRowClickEvents: function () {
         let rows = document.getElementsByClassName("table-data");
 
         for (let i = 0; i < rows.length; i++) {
@@ -17,9 +15,9 @@ function MainFunctionality(){
                 window.location = "/menu/" + rowId;
             }, false);
         }
-    };
-    //TODO Sort out orderClick and searchBoxClick functions
-    this.orderClickEvents = function () {
+    },
+
+    orderClickEvents:  function () {
         let ths = document.getElementsByClassName('column-name');
 
         for (let i = 0; i < ths.length; i++) {
@@ -40,13 +38,13 @@ function MainFunctionality(){
                 orderParams.column = orc;
                 orderParams.type = ort;
 
-                window.mainFunctions.depictSorting();
-                window.mainFunctions.updateMenu(e.currentTarget);
+                MainFunctionality.depictSorting();
+                MainFunctionality.updateMenu(e.currentTarget);
             });
         }
-    };
+    },
 
-    this.depictSorting = function() {
+    depictSorting:  function () {
         let headers = document.getElementsByClassName('column-name');
 
         if (orderParams.formerColumn != undefined && orderParams.formerColumn != "") {
@@ -61,9 +59,9 @@ function MainFunctionality(){
                 }
             }
         }
-    };
+    },
 
-    this.insertSearchVal = function () {
+    insertSearchVal:  function () {
         document.getElementsByClassName("search-bar")[0].firstElementChild.value = searchFileds.titleVal;
         document.getElementsByClassName("search-bar")[1].firstElementChild.value = searchFileds.descrVal;
         document.getElementsByClassName("search-bar")[2].firstElementChild.value = searchFileds.ingredVal;
@@ -73,30 +71,29 @@ function MainFunctionality(){
         document.getElementsByClassName("search-bar")[6].firstElementChild.value = searchFileds.priceVal;
         document.getElementsByClassName("search-bar")[7].firstElementChild.value = searchFileds.createDatVal;
 
-    };
+    },
 
-    this.searchBoxClickEvent = function () {
+    searchBoxClickEvent:  function () {
         let searchBars = document.getElementsByClassName("search-bar");
         for (let i = 0; i < searchBars.length; i++) {
             searchBars[i].firstElementChild.onkeydown = function (e) {
 
                 if (e.code == 'Enter') {
-                    window.mainFunctions.updateMenu(undefined);
+                    MainFunctionality.updateMenu(undefined);
                 }
             }
         }
-    };
+    },
 
-    this.updateMenu = function(orderColumn) {
+    updateMenu:  function (orderColumn) {
         let url = '/menu/items?'
         let orderColumnUrl = "";
-        let orderType;
         let orderTypeUrl = "";
         let searchUrl = "";
 
         orderColumnUrl = 'orderColumn=' + orderParams.column;
         orderTypeUrl = "&" + 'orderType=' + orderParams.type;
-        
+
         url += orderColumnUrl + orderTypeUrl;
 
         let searchBars = document.getElementsByClassName("search-bar");
@@ -119,13 +116,13 @@ function MainFunctionality(){
             if (xhr.readyState == 4 && xhr.status == 200) {
                 let oldItems = document.getElementById("menu-items-rows");
                 oldItems.innerHTML = xhr.response;
-                window.mainFunctions.addRowClickEvents();
+                this.addRowClickEvents();
             }
         }
 
-    };
+    },
 
-    this.fireUpAll = function () {
+    fireUpAll: function () {
         this.addRowClickEvents();
         document.getElementById('new-item-button').onclick = function () {
             window.location.href = '/menu/new';
@@ -138,5 +135,6 @@ function MainFunctionality(){
 
 }
 
-window.onload = function (){ window.mainFunctions.fireUpAll()};
-    
+window.onload = function () {
+    MainFunctionality.fireUpAll();
+}
