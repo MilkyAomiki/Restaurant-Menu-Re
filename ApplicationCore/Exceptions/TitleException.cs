@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ApplicationCore.Exceptions
 {
-    public class TitleException : Exception
+    public class TitleException : MenuDataException
     {
         public string TitleName { get; }
 
