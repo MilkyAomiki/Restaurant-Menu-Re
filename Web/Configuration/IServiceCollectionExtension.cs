@@ -2,9 +2,12 @@
 using ApplicationCore.Entities.DataRepresentation;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Services;
+using AutoMapper;
 using Infrastructure.Data;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Web.Configuration
 {
@@ -20,6 +23,12 @@ namespace Web.Configuration
         public static IServiceCollection ConfigureInfrastructure(this IServiceCollection services)
         {
             services.AddDbContext<MenuContext>(options => options.UseSqlServer("Name=HomeServer"));
+            return services;
+        }
+
+        public static IServiceCollection ConfigureWeb(this IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(MenuMapperDtoProfile));
             return services;
         }
     }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using ApplicationCore.Entities.Data;
+﻿using ApplicationCore.Entities.Data;
 using ApplicationCore.Entities.DataRepresentation;
 using ApplicationCore.Exceptions;
 using ApplicationCore.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Web.DTO;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Web.DTO.DataDisplay;
 using Web.DTO.DataTransfer;
 using Web.Models.Menu;
@@ -16,10 +16,12 @@ namespace Web.Controllers
     public class MenuController : Controller
     {
         private readonly IMenuService<MenuItem, SearchData> menuService;
+        private readonly IMapper mapper;
 
-        public MenuController(IMenuService<MenuItem, SearchData> menuService)
+        public MenuController(IMenuService<MenuItem, SearchData> menuService, IMapper mapper)
         {
             this.menuService = menuService;
+            this.mapper = mapper;
         }
 
         [HttpGet("/")]
@@ -56,20 +58,7 @@ namespace Web.Controllers
             List<MenuViewData> itemsToDisplay = new List<MenuViewData>();
             for (int i = 0; i < items.Count; i++)
             {
-                MenuViewData itemToView = new MenuViewData
-                {
-                    Id = items[i].Id,
-                    Title = items[i].Title,
-                    Description = items[i].Description,
-                    Ingredients = items[i].Ingredients,
-                    Calories = (Convert.ToDecimal(items[i].Grams) / 100) * items[i].Calories,
-                    CookingTime = TimeSpan.FromMinutes((double)items[i].CookingTime),
-                    CreationDate = items[i].CreationDate,
-                    Grams = items[i].Grams,
-                    Price = items[i].Price
-
-                };
-
+                MenuViewData itemToView = mapper.Map<MenuItem, MenuViewData>(items[i]);
                 itemsToDisplay.Add(itemToView);
             }
 
@@ -105,20 +94,7 @@ namespace Web.Controllers
             List<MenuViewData> itemsToDisplay = new List<MenuViewData>();
             for (int i = 0; i < items.Count; i++)
             {
-                MenuViewData itemToView = new MenuViewData
-                {
-                    Id = items[i].Id,
-                    Title = items[i].Title,
-                    Description = items[i].Description,
-                    Ingredients = items[i].Ingredients,
-                    Calories = (Convert.ToDecimal(items[i].Grams) / 100) * items[i].Calories,
-                    CookingTime = TimeSpan.FromMinutes((double)items[i].CookingTime),
-                    CreationDate = items[i].CreationDate,
-                    Grams = items[i].Grams,
-                    Price = items[i].Price
-
-                };
-
+                MenuViewData itemToView = mapper.Map<MenuItem, MenuViewData>(items[i]);
                 itemsToDisplay.Add(itemToView);
             }
             return PartialView("_MenuItemsTableData", itemsToDisplay);
@@ -127,7 +103,7 @@ namespace Web.Controllers
         [HttpPost("/menu")]
         public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] MenuItemDTO item)
         {
-            var sendItem = Mapper.Map(item);
+            var sendItem = mapper.Map<MenuItemDTO, MenuItem>(item);
             try
             {
                 menuService.AddNewItem(sendItem);
@@ -144,8 +120,18 @@ namespace Web.Controllers
         [HttpGet("/menu/{id}")]
         public IActionResult SingleItem(int id)
         {
-            var item = menuService.GetItem(id);
-            var sendItem = Mapper.Map(item);
+            MenuItem menuItem;
+            try
+            {
+                menuItem = menuService.GetItem(id);
+
+            }
+            catch (MenuDataException)
+            {
+                throw;
+            }
+
+            var sendItem = mapper.Map<MenuItem, MenuItemDTO>(menuItem);
 
             return View(new SingleItemModel(sendItem));
         }
@@ -154,10 +140,10 @@ namespace Web.Controllers
         public IActionResult UpdateItem(MenuItemDTO item)
         {
             if (!ModelState.IsValid)
-            {
+            { 
                 return View("SingleItem", new SingleItemModel(item, true));
             }
-            var sendItem = Mapper.Map(item);
+            var sendItem = mapper.Map<MenuItemDTO, MenuItem>(item);
             try
             {
                 sendItem = menuService.ChangeItem(sendItem);
@@ -177,6 +163,5 @@ namespace Web.Controllers
             menuService.DeleteItem(id);
             return Ok();
         }
-
     }
 }
