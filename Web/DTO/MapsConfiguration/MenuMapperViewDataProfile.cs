@@ -9,9 +9,9 @@ namespace Web.DTO.MapsConfiguration
 {
     public class MenuMapperViewDataProfile: Profile
     {
-        private readonly Expression<Func<MenuItem, decimal?>> _totalCalories = source => (Convert.ToDecimal(source.Grams) / 100) * source.Calories;
         private readonly Expression<Func<MenuItem, string>> _formattedCookingTime = source => FormatCookingTime((double)source.CookingTime);
         private readonly Expression<Func<MenuItem, string>> _formattedPrice = source => FormatPrice(source.Price.Value);
+        private readonly Expression<Func<MenuItem, string>> _formattedCalories = source => FormatCalories(source.Calories.Value, source.Grams.Value);
 
         public MenuMapperViewDataProfile()
         {
@@ -21,9 +21,9 @@ namespace Web.DTO.MapsConfiguration
         public void ToViewDataFormatSubProfile()
         {
             CreateMap<MenuItem, MenuViewData>()
-                 .ForMember(dest => dest.Calories, opts => opts.MapFrom(_totalCalories))
                  .ForMember(dest => dest.CookingTime, opts => opts.MapFrom(_formattedCookingTime))
-                 .ForMember(dest => dest.Price, opts => opts.MapFrom(_formattedPrice));
+                 .ForMember(dest => dest.Price, opts => opts.MapFrom(_formattedPrice))
+                 .ForMember(dest => dest.Calories, opts => opts.MapFrom(_formattedCalories));
         }
 
         private static string FormatCookingTime(double minutes)
@@ -60,9 +60,13 @@ namespace Web.DTO.MapsConfiguration
             return result;
         }
 
-        private static string FormatCalories(decimal calories)
+        private static string FormatCalories(decimal calories, int grams)
         {
-            throw new NotImplementedException();
+            calories = Convert.ToDecimal(grams) / 100 * calories;
+
+            string result;
+            result = calories.ToString("######0.#######");
+            return result;
         }
     }
 }
