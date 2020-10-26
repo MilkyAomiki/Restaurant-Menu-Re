@@ -14,9 +14,6 @@
     cursor:pointer;
 }
 
-form div.data-field {
-}
-
 #delete-button {
     color: #f74343;
 }
@@ -35,7 +32,6 @@ form div.data-field {
     font-weight: bold;
     color: #2e2e2e;
 }
-
 .data-field input {
     margin-bottom: 25px;
 }
@@ -44,7 +40,6 @@ input {
     font-size: 14px;
     line-height: 20px;
     color: #24292e;
-    vertical-align: middle;
     background-color: #fff;
     background-repeat: no-repeat;
     background-position: right 8px center;
@@ -58,6 +53,3 @@ span.text-danger{
 
     margin-bottom:25px;
 }
-/*div.data-field {
-    margin-bottom: 25px;
-}*/

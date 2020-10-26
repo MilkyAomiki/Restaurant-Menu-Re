@@ -12,7 +12,6 @@ namespace Web.DTO.DataDisplay
         public string Price { get; set; }
         public int? Grams { get; set; }
         public string Calories { get; set; }
-        //public TimeSpan? CookingTime { get; set; }
         public string CookingTime { get; set; }
     }
 }

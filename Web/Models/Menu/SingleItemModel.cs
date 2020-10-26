@@ -1,15 +1,15 @@
-﻿using Web.DTO.DataTransfer;
+﻿using Web.DTO.DataDisplay;
 
 namespace Web.Models.Menu
 {
     public class SingleItemModel
     {
-        public SingleItemModel(MenuItemDTO menuItem, bool editable = false)
+        public SingleItemModel(ItemViewData menuItem, bool editable = false)
         {
             MenuItem = menuItem;
             OpenEditable = editable;
         }
-        public MenuItemDTO MenuItem { get; set; }
+        public ItemViewData MenuItem { get; set; }
         public bool OpenEditable { get; set; }
     }
 }

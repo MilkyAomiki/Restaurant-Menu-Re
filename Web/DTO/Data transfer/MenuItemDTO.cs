@@ -31,9 +31,9 @@ namespace Web.DTO.DataTransfer
         [FromForm]
         public decimal? Calories { get; set; }
 
-        [Range(0, int.MaxValue)]
+        [RegularExpression(@"^(\d){1,2}(:(\d){1,2}){0,2}$")]
         [FromForm]
-        public int? CookingTime { get; set; }
+        public TimeSpan CookingTime { get; set; }
 
         [Range(0, double.MaxValue)]
         [FromForm]

@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Web.DTO.DataDisplay;
 using Web.DTO.DataTransfer;
@@ -20,6 +21,7 @@ namespace Web.Controllers
 
         public MenuController(IMenuService<MenuItem, SearchData> menuService, IMapper mapper)
         {
+            
             this.menuService = menuService;
             this.mapper = mapper;
         }
@@ -131,7 +133,7 @@ namespace Web.Controllers
                 throw;
             }
 
-            var sendItem = mapper.Map<MenuItem, MenuItemDTO>(menuItem);
+            var sendItem = mapper.Map<MenuItem, ItemViewData>(menuItem);
 
             return View(new SingleItemModel(sendItem));
         }
@@ -139,9 +141,11 @@ namespace Web.Controllers
         [HttpPost("/menu/{id}")]
         public IActionResult UpdateItem(MenuItemDTO item)
         {
+            ItemViewData viewItem;
             if (!ModelState.IsValid)
-            { 
-                return View("SingleItem", new SingleItemModel(item, true));
+            {
+                viewItem = mapper.Map<MenuItemDTO, ItemViewData>(item);
+                return View("SingleItem", new SingleItemModel(viewItem, true));
             }
             var sendItem = mapper.Map<MenuItemDTO, MenuItem>(item);
             try
@@ -151,7 +155,8 @@ namespace Web.Controllers
             catch (TitleException titleExc)
             {
                 ModelState.AddModelError("MenuItem.Title#", titleExc.Message);
-                return View("SingleItem", new SingleItemModel(item, true));
+                viewItem = mapper.Map<MenuItemDTO, ItemViewData>(item);
+                return View("SingleItem", new SingleItemModel(viewItem, true));
             }
 
             return RedirectToAction("SingleItem", new { id = sendItem.Id });

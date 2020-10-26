@@ -32,13 +32,13 @@
                 <h5>Grams</h5> @Model.MenuItem.Grams
             </div>
             <div class="data-field">
-                <h5>Calories <small style="font-weight:100">(per 100 grams)</small></h5> @Model.MenuItem.Calories
+                <h5>Calories</h5> @Model.MenuItem.CaloriesF
             </div>
             <div class="data-field">
-                <h5>Cooking time <small style="font-weight:100">(in minutes)</small></h5> @Model.MenuItem.CookingTime
+                <h5>Cooking time <small style="font-weight:100">(in minutes)</small></h5> @Model.MenuItem.CookingTimeF
             </div>
             <div class="data-field">
-                <h5>Price</h5> @Model.MenuItem.Price
+                <h5>Price</h5> @Model.MenuItem.PriceF
             </div>
             <div>
                 <button type="button" id="turntoedit-button">Edit</button>
@@ -77,7 +77,7 @@
                         <span asp-validation-for="MenuItem.Grams" class="text-danger" name="Description"></span>
                     </div>
                     <div class="data-field">
-                        <label asp-for="MenuItem.Calories" class="control-label">Calories</label><br>
+                        <label asp-for="MenuItem.Calories" class="control-label">Calories<small style="font-weight:100"> (per 100 grams)</small></label><br>
                         <input asp-for="MenuItem.Calories" class="form-control" type="text" name="Calories" value="@Model.MenuItem.Calories" placeholder="Calories" required /> <br>
                         <span asp-validation-for="MenuItem.Calories" class="text-danger" name="Description"></span>
                     </div>
@@ -88,6 +88,7 @@
                     </div>
                     <div class="data-field">
                         <label asp-for="MenuItem.Price" class="control-label">Price</label><br>
+                        <span>@Model.MenuItem.CurrencySymbol</span>
                         <input asp-for="MenuItem.Price" class="form-control" type="text" name="Price" value="@Model.MenuItem.Price" placeholder="Price" required /> <br>
                         <span asp-validation-for="MenuItem.Price" class="text-danger" name="Description"></span>
                     </div>

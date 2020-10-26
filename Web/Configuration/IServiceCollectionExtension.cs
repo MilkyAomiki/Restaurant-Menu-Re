@@ -28,7 +28,7 @@ namespace Web.Configuration
 
         public static IServiceCollection ConfigureWeb(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(DTO.MapsConfiguration.MenuMapperDtoProfile));
+            services.AddAutoMapper(typeof(DTO.MapsConfiguration.MenuDtoProfile));
             return services;
         }
     }
