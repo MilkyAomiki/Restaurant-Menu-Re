@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web.DTO.DataTransfer;
 
-namespace Web.Configuration
+namespace Web.DTO.MapsConfiguration
 {
     public class MenuMapperDtoProfile: Profile
     {
