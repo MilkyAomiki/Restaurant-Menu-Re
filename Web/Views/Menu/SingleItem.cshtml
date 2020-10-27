@@ -88,8 +88,8 @@
                     </div>
                     <div class="data-field">
                         <label asp-for="MenuItem.Price" class="control-label">Price</label><br>
-                        <span>@Model.MenuItem.CurrencySymbol</span>
-                        <input asp-for="MenuItem.Price" class="form-control" type="text" name="Price" value="@Model.MenuItem.Price" placeholder="Price" required /> <br>
+                        <input type="text" id="price-currency" value="@Model.MenuItem.CurrencySymbol" disabled/>
+                        <input asp-for="MenuItem.Price" id="price-value" class="form-control" type="text" name="Price" value="@Model.MenuItem.Price" placeholder="Price" required /> <br>
                         <span asp-validation-for="MenuItem.Price" class="text-danger" name="Description"></span>
                     </div>
                     <div class="data-field">
