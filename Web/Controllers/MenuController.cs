@@ -6,7 +6,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text.RegularExpressions;
 using Web.DTO.DataDisplay;
 using Web.DTO.DataTransfer;
@@ -106,6 +105,10 @@ namespace Web.Controllers
         public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] MenuItemDTO item)
         {
             var sendItem = mapper.Map<MenuItemDTO, MenuItem>(item);
+            if (!ModelState.IsValid)
+            {
+                return View("NewItem", item);
+            }
             try
             {
                 menuService.AddNewItem(sendItem);
