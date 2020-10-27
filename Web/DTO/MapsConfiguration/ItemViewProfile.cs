@@ -10,7 +10,6 @@ namespace Web.DTO.MapsConfiguration
 
     public class ItemViewProfile: GeneralViewProfile
     {
-        //NumberFormatInfo.GetInstance(CultureInfo.CreateSpecificCulture("en-US"))
         private readonly string CurrencySymbol = new RegionInfo("en-US").ISOCurrencySymbol;
         protected readonly Expression<Func<MenuItemDTO, string>> formattedCaloriesOrNull;
         protected readonly Expression<Func<MenuItemDTO, string>> formattedPriceOrNull;

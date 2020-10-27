@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Web.DTO.DataDisplay;
 using Web.DTO.DataTransfer;
@@ -35,7 +36,8 @@ namespace Web.Controllers
         [HttpGet("/menu/new")]
         public IActionResult NewItem()
         {
-            return View();
+            var model = new NewItemViewDTO { CurrencySymbol = new RegionInfo("en-US").ISOCurrencySymbol };
+            return View(model);
         }
 
         [HttpGet("/menu")]
@@ -102,9 +104,9 @@ namespace Web.Controllers
         }
 
         [HttpPost("/menu")]
-        public IActionResult CreateItem([Bind("Title,Ingredients,Description,Price,Grams,Calories,CookingTime")] MenuItemDTO item)
+        public IActionResult CreateItem(NewItemViewDTO item)
         {
-            var sendItem = mapper.Map<MenuItemDTO, MenuItem>(item);
+            var sendItem = mapper.Map<NewItemViewDTO, MenuItem>(item);
             if (!ModelState.IsValid)
             {
                 return View("NewItem", item);
