@@ -28,17 +28,23 @@ main {
     cursor:pointer;
 }
 
-.table-data td{
+.table-data td {
     z-index: -1;
+    border-color: #d9d9d9;
+    border-top-color: #a8a8a8;
+    border-bottom-color: #a8a8a8;
 }
+
 .table-data{
     z-index:5;
 }
 
-#new-item-button{
-    margin-top:0;
-    margin-left:25px;
-    margin-bottom:25px;
+#new-item-button {
+    margin-top: 0;
+    margin-left: 25px;
+    margin-bottom: 25px;
+    width: auto;
+    font-weight: 500;
 }
 
 #pagination{
@@ -82,4 +88,8 @@ a{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+footer span{
+    margin-left:30px;
 }

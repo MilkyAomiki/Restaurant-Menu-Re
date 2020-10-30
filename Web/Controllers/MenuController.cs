@@ -109,15 +109,17 @@ namespace Web.Controllers
             var sendItem = mapper.Map<NewItemViewDTO, MenuItem>(item);
             if (!ModelState.IsValid)
             {
+                item.CurrencySymbol = new RegionInfo("en-US").ISOCurrencySymbol;
                 return View("NewItem", item);
             }
             try
             {
                 menuService.AddNewItem(sendItem);
             }
-            catch (TitleException titleExc)
+            catch (MenuDataException exc)
             {
-                ModelState.AddModelError("Title#" ,titleExc.Message);
+                ModelState.AddModelError("outline", exc.Message);
+                item.CurrencySymbol = new RegionInfo("en-US").ISOCurrencySymbol;
                 return View("NewItem", item);
             }
 
@@ -157,9 +159,9 @@ namespace Web.Controllers
             {
                 sendItem = menuService.ChangeItem(sendItem);
             }
-            catch (TitleException titleExc)
+            catch (MenuDataException exc)
             {
-                ModelState.AddModelError("MenuItem.Title#", titleExc.Message);
+                ModelState.AddModelError("outline", exc.Message);
                 viewItem = mapper.Map<MenuItemDTO, ItemViewData>(item);
                 return View("SingleItem", new SingleItemModel(viewItem, true));
             }

@@ -33,28 +33,9 @@ namespace Infrastructure.Data
             {
                 _context.SaveChanges();
             }
-            catch (DbUpdateException dbexc)
+            catch (DbUpdateException)
             {
-                var innerexc = dbexc.InnerException;
-                if (innerexc is SqlException)
-                {
-                    var columnNameMatch = Regex.Match(innerexc.Message, @"\(\w*|\d\)");
-                    if (columnNameMatch.Success)
-                    {
-                        var reg = new Regex(@"\(|\)");
-                        string columnName = reg.Replace(columnNameMatch.Value, String.Empty);
-                        throw new TitleException(columnName, $"Given title '{columnName}' have already been created");
-                    }
-                    else
-                    {
-                        throw new MenuDataException();
-                    }
-
-                }
-                else
-                {
-                    throw new MenuDataException();
-                }
+                throw new MenuDataException("Something went wrong.\nMake sure entered name is unique.");
             }
         }
 
@@ -227,28 +208,7 @@ namespace Infrastructure.Data
             }
             catch (DbUpdateException dbexc)
             {
-                var innerexc = dbexc.InnerException;
-                if (innerexc is SqlException)
-                {
-                    var columnNameMatch = Regex.Match(innerexc.Message, @"\(\w*|\d\)");
-                    if (columnNameMatch.Success)
-                    {
-                        var reg = new Regex(@"\(|\)");
-                        string columnName = reg.Replace(columnNameMatch.Value, String.Empty);
-                        var titleExc = new TitleException(columnName, $"Given title '{columnName}' have already been created");
-
-                        throw titleExc;
-                    }
-                    else
-                    {
-                        throw new MenuDataException();
-                    }
-
-                }
-                else
-                {
-                    throw new MenuDataException();
-                }
+                throw new MenuDataException("Something went wrong.\nMake sure entered name is unique.");
             }
      
            return newEntity;

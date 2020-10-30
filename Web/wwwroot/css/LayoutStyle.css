@@ -15,7 +15,7 @@ header a {
     float: left;
     margin: 0;
     margin-top: 20px;
-    margin-left: 15px;
+    margin-left: 30px;
     color: aliceblue;
 }
 header a:link {
@@ -33,7 +33,6 @@ footer {
     width: 100%;
 }
 
-
 button {
     margin-top: 35px;
     background-color: #fafbfc;
@@ -44,6 +43,9 @@ button {
     width: 70px;
     height: 30px;
     font-weight: bold;
+    outline: none;
+    padding: 1px 8px;
+    border-color: #aeaeae;
 }
 
     button:hover {

@@ -5,6 +5,8 @@ namespace Infrastructure.Data
 {
     public class MenuContext : DbContext
     {
+        public DbSet<MenuItem> MenuItem { get; set; }
+
         public MenuContext()
         {
         }
@@ -14,7 +16,6 @@ namespace Infrastructure.Data
         {
         }
 
-        public virtual DbSet<MenuItem> MenuItem { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.EnableSensitiveDataLogging();
@@ -23,8 +24,6 @@ namespace Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new MenuItemConfiguration());
-
-
         }
     }
 }

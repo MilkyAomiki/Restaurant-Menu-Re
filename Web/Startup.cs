@@ -20,9 +20,8 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
             services.ConfigureCore();
-            services.ConfigureInfrastructure();
+            services.ConfigureInfrastructure(Configuration);
             services.ConfigureWeb();
 
         }

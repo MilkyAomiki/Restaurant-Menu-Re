@@ -7,6 +7,7 @@ using Infrastructure.Data;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 namespace Web.Configuration
@@ -20,9 +21,9 @@ namespace Web.Configuration
             return services;
         }
 
-        public static IServiceCollection ConfigureInfrastructure(this IServiceCollection services)
+        public static IServiceCollection ConfigureInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<MenuContext>(options => options.UseSqlServer("Name=HomeServer"));
+            services.AddDbContext<MenuContext>(options => options.UseSqlServer(configuration.GetConnectionString("HomeServer")));
             return services;
         }
 
