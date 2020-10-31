@@ -1,7 +1,7 @@
 ﻿using ApplicationCore.Entities.Data;
 using System;
-using System.Globalization;
 using System.Linq.Expressions;
+using Web.Configuration;
 using Web.DTO.DataDisplay;
 using Web.DTO.DataTransfer;
 
@@ -10,7 +10,7 @@ namespace Web.DTO.MapsConfiguration
 
     public class ItemViewProfile: GeneralViewProfile
     {
-        private readonly string CurrencySymbol = new RegionInfo("en-US").ISOCurrencySymbol;
+        private readonly string CurrencySymbol = RegionOfApp.Current.ISOCurrencySymbol;
         
         protected readonly Expression<Func<MenuItemDTO, string>> formattedCaloriesOrNull;
         protected readonly Expression<Func<MenuItemDTO, string>> formattedPriceOrNull;

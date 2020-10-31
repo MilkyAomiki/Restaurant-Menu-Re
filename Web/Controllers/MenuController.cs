@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Web.Configuration;
 using Web.DTO.DataDisplay;
 using Web.DTO.DataTransfer;
 using Web.Models.Menu;
@@ -109,7 +110,7 @@ namespace Web.Controllers
             var sendItem = mapper.Map<NewItemViewDTO, MenuItem>(item);
             if (!ModelState.IsValid)
             {
-                item.CurrencySymbol = new RegionInfo("en-US").ISOCurrencySymbol;
+                item.CurrencySymbol = RegionOfApp.Current.ISOCurrencySymbol;
                 return View("NewItem", item);
             }
             try
@@ -118,8 +119,8 @@ namespace Web.Controllers
             }
             catch (MenuDataException exc)
             {
-                ModelState.AddModelError(String.Empty, exc.Message);
-                item.CurrencySymbol = new RegionInfo("en-US").ISOCurrencySymbol;
+                ModelState.AddModelError(string.Empty, exc.Message);
+                item.CurrencySymbol = RegionOfApp.Current.ISOCurrencySymbol;
                 return View("NewItem", item);
             }
 
