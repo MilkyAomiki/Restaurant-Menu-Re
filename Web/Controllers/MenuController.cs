@@ -146,7 +146,7 @@ namespace Web.Controllers
             return View(new SingleItemModel(sendItem));
         }
 
-        [HttpPost("/menu/{id}")]
+        [HttpPost("/menu/{MenuItem.id}")]
         public IActionResult UpdateItem([Bind(Prefix ="MenuItem")]MenuItemDTO item)
         {
             ItemViewData viewItem;
@@ -162,7 +162,7 @@ namespace Web.Controllers
             }
             catch (MenuDataException exc)
             {
-                ModelState.AddModelError("outline", exc.Message);
+                ModelState.AddModelError(string.Empty, exc.Message);
                 viewItem = mapper.Map<MenuItemDTO, ItemViewData>(item);
                 return View("SingleItem", new SingleItemModel(viewItem, true));
             }
