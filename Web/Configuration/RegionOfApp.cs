@@ -11,5 +11,10 @@ namespace Web.Configuration
         {
             
         }
+
+        private RegionOfApp()
+        {
+            
+        }
     }
 }
