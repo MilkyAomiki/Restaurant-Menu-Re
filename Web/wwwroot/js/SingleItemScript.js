@@ -8,6 +8,9 @@
     document.getElementById('visible-markup').innerHTML = editableFields;
 
     document.getElementById("turntoreadonly-button").onclick = swapToReadonly;
+
+    let form = document.querySelector("form");
+    $.validator.unobtrusive.parse(form);
 }
 
 const swapToReadonly = function () {

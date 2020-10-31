@@ -1,5 +1,4 @@
-﻿using ApplicationCore.Entities.Data;
-using ApplicationCore.Entities.DataRepresentation;
+﻿using ApplicationCore.Entities.DataRepresentation;
 using System.Collections.Generic;
 using Web.DTO.DataDisplay;
 
