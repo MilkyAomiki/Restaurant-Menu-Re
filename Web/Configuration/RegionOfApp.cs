@@ -2,8 +2,14 @@
 
 namespace Web.Configuration
 {
-    public class RegionOfApp
+    public sealed class RegionOfApp
     {
-        public static RegionInfo Current { get; } = new RegionInfo("en-US");
+        public static RegionOfApp Instance { get; } = new RegionOfApp();
+        public RegionInfo Current { get; } = new RegionInfo("en-US");
+
+        static RegionOfApp()
+        {
+            
+        }
     }
 }

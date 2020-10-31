@@ -110,7 +110,7 @@ namespace Web.Controllers
             var sendItem = mapper.Map<NewItemViewDTO, MenuItem>(item);
             if (!ModelState.IsValid)
             {
-                item.CurrencySymbol = RegionOfApp.Current.ISOCurrencySymbol;
+                item.CurrencySymbol = RegionOfApp.Instance.Current.ISOCurrencySymbol;
                 return View("NewItem", item);
             }
             try
@@ -120,7 +120,7 @@ namespace Web.Controllers
             catch (MenuDataException exc)
             {
                 ModelState.AddModelError(string.Empty, exc.Message);
-                item.CurrencySymbol = RegionOfApp.Current.ISOCurrencySymbol;
+                item.CurrencySymbol = RegionOfApp.Instance.Current.ISOCurrencySymbol;
                 return View("NewItem", item);
             }
 

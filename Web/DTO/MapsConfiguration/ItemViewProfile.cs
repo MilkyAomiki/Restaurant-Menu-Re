@@ -10,7 +10,7 @@ namespace Web.DTO.MapsConfiguration
 
     public class ItemViewProfile: GeneralViewProfile
     {
-        private readonly string CurrencySymbol = RegionOfApp.Current.ISOCurrencySymbol;
+        private readonly string CurrencySymbol = RegionOfApp.Instance.Current.ISOCurrencySymbol;
         
         protected readonly Expression<Func<MenuItemDTO, string>> formattedCaloriesOrNull;
         protected readonly Expression<Func<MenuItemDTO, string>> formattedPriceOrNull;
