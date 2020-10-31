@@ -118,7 +118,7 @@ namespace Web.Controllers
             }
             catch (MenuDataException exc)
             {
-                ModelState.AddModelError("outline", exc.Message);
+                ModelState.AddModelError(String.Empty, exc.Message);
                 item.CurrencySymbol = new RegionInfo("en-US").ISOCurrencySymbol;
                 return View("NewItem", item);
             }
@@ -146,7 +146,7 @@ namespace Web.Controllers
         }
 
         [HttpPost("/menu/{id}")]
-        public IActionResult UpdateItem(MenuItemDTO item)
+        public IActionResult UpdateItem([Bind(Prefix ="MenuItem")]MenuItemDTO item)
         {
             ItemViewData viewItem;
             if (!ModelState.IsValid)

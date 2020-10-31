@@ -23,6 +23,7 @@ namespace Web.DTO.DataTransfer
 
         [Range(0, int.MaxValue)]
         [FromForm]
+        [Required]
         public int? Grams { get; set; }
 
         [Range(0, 999999.99)]

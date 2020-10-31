@@ -55,41 +55,42 @@
                 <img id="turntoreadonly-button" src="~/pics/arrow_back.svg" />
 
                 <form action="/menu/@Model.MenuItem.Id" method="post">
-                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="data-field">
                         <label asp-for="MenuItem.Title" class="control-label">Title</label> <br />
-                        <input asp-for="MenuItem.Title" class="form-control" type="text" name="Title" value="@Model.MenuItem.Title" placeholder="Title" required /> <br>
+                        <input asp-for="MenuItem.Title" class="form-control" type="text" value="@Model.MenuItem.Title" placeholder="Title" required /> <br>
                         <span  asp-validation-for="MenuItem.Title"  class="text-danger"name="Description" ></span>
                     </div>
                     <div class="data-field">
                         <label asp-for="MenuItem.Description" class="control-label">Description</label> <br>
-                        <input asp-for="MenuItem.Description" class="form-control" type="text" name="Description" value="@Model.MenuItem.Description" placeholder="Description" required /> <br>
+                        <input asp-for="MenuItem.Description" class="form-control" type="text"  value="@Model.MenuItem.Description" placeholder="Description" required /> <br>
                         <span asp-validation-for="MenuItem.Description" class="text-danger" name="Description"></span>
                     </div>
                     <div class="data-field">
                         <label asp-for="MenuItem.Ingredients" class="control-label">Ingredients</label><br>
-                        <input asp-for="MenuItem.Ingredients" class="form-control" type="text" name="Ingredients" value="@Model.MenuItem.Ingredients" placeholder="Ingredients" required /> <br>
+                        <input asp-for="MenuItem.Ingredients" class="form-control" type="text" value="@Model.MenuItem.Ingredients" placeholder="Ingredients" required /> <br>
                         <span asp-validation-for="MenuItem.Ingredients" class="text-danger" name="Description"></span>
                     </div>
                     <div class="data-field">
+                        
                         <label asp-for="MenuItem.Grams" class="control-label">Grams</label><br>
-                        <input asp-for="MenuItem.Grams" class="form-control" type="text" name="Grams" value="@Model.MenuItem.Grams" placeholder="Grams" required /> <br>
+                        <input asp-for="MenuItem.Grams" class="form-control" type="text" value="@Model.MenuItem.Grams" placeholder="Grams" required /> <br>
                         <span asp-validation-for="MenuItem.Grams" class="text-danger" name="Description"></span>
                     </div>
                     <div class="data-field">
                         <label asp-for="MenuItem.Calories" class="control-label">Calories<small style="font-weight:100"> (per 100 grams)</small></label><br>
-                        <input asp-for="MenuItem.Calories" class="form-control" type="text" name="Calories" value="@Model.MenuItem.Calories" placeholder="Calories" required /> <br>
+                        <input asp-for="MenuItem.Calories" class="form-control" type="text" value="@Model.MenuItem.Calories" placeholder="Calories" required /> <br>
                         <span asp-validation-for="MenuItem.Calories" class="text-danger" name="Description"></span>
                     </div>
                     <div class="data-field">
                         <label asp-for="MenuItem.CookingTime" class="control-label">Cooking time</label><br>
-                        <input asp-for="MenuItem.CookingTime" class="form-control" type="text" name="CookingTime" value="@Model.MenuItem.CookingTime" placeholder="Cooking time" required /> <br>
+                        <input asp-for="MenuItem.CookingTime" class="form-control" type="text" value="@Model.MenuItem.CookingTime" placeholder="Cooking time" required /> <br>
                         <span asp-validation-for="MenuItem.CookingTime" class="text-danger" name="Description"></span>
                     </div>
                     <div class="data-field">
                         <label asp-for="MenuItem.Price" class="control-label">Price</label><br>
                         <input type="text" id="price-currency" value="@Model.MenuItem.CurrencySymbol" disabled/>
-                        <input asp-for="MenuItem.Price" id="price-value" class="form-control" type="text" name="Price" value="@Model.MenuItem.Price" placeholder="Price" required /> <br>
+                        <input asp-for="MenuItem.Price" id="price-value" class="form-control" type="text" value="@Model.MenuItem.Price" placeholder="Price" required /> <br>
                         <span asp-validation-for="MenuItem.Price" class="text-danger" name="Description"></span>
                     </div>
                     <div class="data-field">

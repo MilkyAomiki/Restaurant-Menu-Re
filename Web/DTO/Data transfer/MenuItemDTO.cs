@@ -20,7 +20,7 @@ namespace Web.DTO.DataTransfer
         public string Description { get; set; }
 
         [Required]
-        [FromForm]  
+        [FromForm]
         public string Ingredients { get; set; }
 
         [Range(0, int.MaxValue)]

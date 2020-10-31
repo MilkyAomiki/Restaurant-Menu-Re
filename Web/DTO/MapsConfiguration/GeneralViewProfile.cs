@@ -16,9 +16,9 @@ namespace Web.DTO.MapsConfiguration
         public GeneralViewProfile()
         {
             formattedCookingTime = source => FormatCookingTime((double)source.CookingTime);
-            formattedPrice = source => FormatPrice(source.Price.Value);
-            formattedCalories = source => FormatCalories(source.Calories.Value, source.Grams.Value);
-            parseCookingTime = source => ParseCookingTime((double)source.CookingTime);
+            formattedPrice = source => FormatPrice(source.Price.GetValueOrDefault());
+            formattedCalories = source => FormatCalories(source.Calories.GetValueOrDefault(), source.Grams.GetValueOrDefault());
+            parseCookingTime = source => ParseCookingTime((double)source.CookingTime.GetValueOrDefault());
         }
 
         protected virtual string FormatCookingTime(double minutes)
@@ -67,12 +67,12 @@ namespace Web.DTO.MapsConfiguration
             return result;
         }
 
-        protected virtual string FormatCalories(decimal calories, int grams)
+        protected virtual string FormatCalories(decimal? calories, int? grams)
         {
             string result;
             calories = Convert.ToDecimal(grams) / 100 * calories;
 
-            result = calories.ToString("######0.#######");
+            result = calories.Value.ToString("######0.#######");
             return result;
         }
     }
